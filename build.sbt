@@ -10,6 +10,7 @@ lazy val root = (project in file("."))
   .settings(
     name := "piccola-italia-menu",
     libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.5.0",
+    libraryDependencies += "com.raquo" %%% "laminar" % "17.0.0",
     scalaJSUseMainModuleInitializer := true,
 
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.19" % "test"

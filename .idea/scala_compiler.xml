@@ -2,6 +2,11 @@
 <project version="4">
   <component name="ScalaCompilerConfiguration">
     <option name="separateProdTestSources" value="true" />
-    <profile name="sbt 1" modules="piccola-italia-menu,piccola-italia-menu.main,piccola-italia-menu.test" />
+    <profile name="sbt 1" modules="piccola-italia-menu" />
+    <profile name="sbt 2" modules="piccola-italia-menu.main,piccola-italia-menu.test">
+      <parameters>
+        <parameter value="-scalajs" />
+      </parameters>
+    </profile>
   </component>
 </project>
