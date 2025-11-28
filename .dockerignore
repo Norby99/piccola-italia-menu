@@ -47,6 +47,10 @@ build/
 .bsp/
 
 ##### Docker Extras #####
+### git ###
+.git/
+.gitignore
+
 ### Docer ###
 Dockerfile
 .dockerignore
