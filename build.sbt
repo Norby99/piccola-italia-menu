@@ -19,10 +19,15 @@ val copyResourcesToSite = Def.task {
 }
 
 // Task to copy js files after linking
-def linkAndCopy(link: TaskKey[sbt.Attributed[org.scalajs.linker.interface.Report]]) = Def.task {
+def linkAndCopy(
+    link: TaskKey[sbt.Attributed[org.scalajs.linker.interface.Report]]
+) = Def.task {
   val outDir = (Compile / link / scalaJSLinkerOutputDirectory).value
   val res = (Compile / link).value
-  copyJSFilesTask.value(baseDirectory.value / "target" / siteOutput / "js", outDir)
+  copyJSFilesTask.value(
+    baseDirectory.value / "target" / siteOutput / "js",
+    outDir
+  )
   res
 }
 val copyJSFilesTask = Def.task {
@@ -36,15 +41,30 @@ lazy val root = (project in file("."))
   .enablePlugins(ScalaJSPlugin)
   .settings(
     name := "piccola-italia-menu",
-    libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.5.0",
-    libraryDependencies += "com.raquo" %%% "laminar" % "17.0.0",
     scalaJSUseMainModuleInitializer := true,
-    libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.19" % "test",
+    
+    // ScalaJS
+    libraryDependencies ++= Seq(
+      "org.scala-js" %%% "scalajs-dom" % "2.5.0",
+      "com.raquo" %%% "laminar" % "17.0.0",
+      
+      "io.circe" %%% "circe-core" % "0.14.3",
+      "io.circe" %%% "circe-generic" % "0.14.3",
+      "io.circe" %%% "circe-parser" % "0.14.3"
+    ),
 
+    // JVM
+    libraryDependencies ++= Seq(
+      "org.scalatest" %% "scalatest" % "3.2.19" % "test",
+      
+      "io.circe" %% "circe-core" % "0.14.3",
+      "io.circe" %% "circe-generic" % "0.14.3",
+      "io.circe" %% "circe-parser" % "0.14.3"
+    ),
+    
     // Consistent output directory for Scala.js artifacts
     Compile / resourceGenerators += copyResourcesToSite.taskValue,
     crossTarget := baseDirectory.value / "target" / "scala-output",
-
     Compile / fastLinkJS := linkAndCopy(fastLinkJS).value,
     Compile / fullLinkJS := linkAndCopy(fullLinkJS).value
   )
