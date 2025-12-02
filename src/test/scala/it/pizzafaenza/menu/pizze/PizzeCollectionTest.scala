@@ -1,7 +1,8 @@
 package it.pizzafaenza.menu.pizze
 
-import it.pizzafaenza.menu.pizze.PizzeCollection
+import it.pizzafaenza.menu.pizze.{Pizza, PizzeCollection}
 import it.pizzafaenza.menu.utils.MockJsonReader
+
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should.Matchers
 

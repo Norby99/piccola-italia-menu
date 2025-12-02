@@ -2,7 +2,6 @@ package it.pizzafaenza.menu.utils
 
 import io.circe.Json
 import it.pizzafaenza.menu.json.JsonReader
-
 import scala.concurrent.{ExecutionContext, Future}
 
 object MockJsonReader extends JsonReader:

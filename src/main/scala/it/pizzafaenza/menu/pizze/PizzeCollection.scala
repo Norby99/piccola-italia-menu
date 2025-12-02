@@ -1,8 +1,7 @@
 package it.pizzafaenza.menu.pizze
 
-import io.circe.*
 import it.pizzafaenza.menu.json.JsonReader
-
+import io.circe.*
 import scala.concurrent.{ExecutionContext, Future}
 
 class PizzeCollection(jsonReader: JsonReader)(implicit ec: ExecutionContext):
