@@ -1,4 +1,6 @@
-import com.raquo.laminar.api.L._
+package it.pizzafaenza.menu
+
+import com.raquo.laminar.api.L.*
 import org.scalajs.dom
 
 @main def runApp(): Unit =
