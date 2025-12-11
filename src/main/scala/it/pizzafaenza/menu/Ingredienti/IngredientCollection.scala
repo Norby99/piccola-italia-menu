@@ -21,7 +21,7 @@ class IngredientCollection(jsonReader: JsonReader)(implicit
   def getIngredients: Future[List[Ingredient]] =
     jsonReader.read(DBPath).map { content =>
       content.as[List[Ingredient]] match
-        case Right(lista) => lista
+        case Right(l) => l
         case Left(error) =>
           throw new Exception(s"Failed to decode Ingredient: $error")
     }

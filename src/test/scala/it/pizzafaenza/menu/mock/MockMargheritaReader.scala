@@ -2,7 +2,7 @@ package it.pizzafaenza.menu.mock
 
 import io.circe.Json
 import it.pizzafaenza.menu.json.JsonReader
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 object MockMargheritaReader extends JsonReader:
   override def read(path: String): Future[Json] =

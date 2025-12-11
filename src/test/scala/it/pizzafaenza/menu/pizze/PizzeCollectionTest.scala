@@ -1,22 +1,28 @@
 package it.pizzafaenza.menu.pizze
 
-import scala.concurrent.Future
+import it.pizzafaenza.menu.Ingredienti.IngredientCollection
 
+import scala.concurrent.Future
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should.Matchers
-
-import it.pizzafaenza.menu.mock.MockMargheritaReader
-import it.pizzafaenza.menu.pizze.{Pizza, PizzeCollection}
+import it.pizzafaenza.menu.mock.{MockMargheritaReader, MockVariousReader}
+import it.pizzafaenza.menu.pizze.PizzeCollection
 
 class PizzeCollectionTest extends AsyncFlatSpec with Matchers:
 
   "PizzeCollection" should "load margherita w/o ingredients from a JSON" in:
     val collection = new PizzeCollection(MockMargheritaReader)
-    val pizze: Future[List[Pizza]] = collection.getPizze
 
-    pizze.map { p =>
-      p.length shouldBe 1
-      p.head.name shouldBe "Margherita"
-      p.head.price shouldBe 4.0
+    for
+      ingredients <- IngredientCollection(MockVariousReader).getIngredients
+      pizze <- collection.getPizze(ingredients)
+
+      salsaPomodoro = ingredients.find(_.id == 1).get
+      mozzarella = ingredients.find(_.id == 2).get
+    yield
+      pizze.length shouldBe 1
+      val pizza = pizze.head
+      pizza.name shouldBe "Margherita"
+      pizza.ingredients should contain allOf (salsaPomodoro, mozzarella)
+      pizza.price shouldBe 4.0
       succeed
-    }
