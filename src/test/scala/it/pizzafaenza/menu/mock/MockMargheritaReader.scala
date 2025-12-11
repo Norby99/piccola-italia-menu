@@ -1,10 +1,10 @@
-package it.pizzafaenza.menu.utils
+package it.pizzafaenza.menu.mock
 
 import io.circe.Json
 import it.pizzafaenza.menu.json.JsonReader
 import scala.concurrent.{ExecutionContext, Future}
 
-object MockJsonReader extends JsonReader:
+object MockMargheritaReader extends JsonReader:
   override def read(path: String): Future[Json] =
     val mockJsonString =
       """
@@ -15,16 +15,9 @@ object MockJsonReader extends JsonReader:
         |        "nome_tipo": "Pizze classiche",
         |        "prezzo": "4",
         |        "ingredienti": "1,2"
-        |    },
-        |    {
-        |        "id": "2",
-        |        "nomePizza": "Prosciutto crudo",
-        |        "nome_tipo": "Pizze classiche",
-        |        "prezzo": "6",
-        |        "ingredienti": "1,2,3"
         |    }
         |]
-        """.stripMargin
+        |""".stripMargin
 
     Future.successful(
       io.circe.parser.parse(mockJsonString).getOrElse(Json.Null)
