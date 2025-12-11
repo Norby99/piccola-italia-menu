@@ -1,5 +1,6 @@
 package it.pizzafaenza.menu.Ingredienti
 
-sealed case class Name(italian: String, english: String)
+case class Name(italian: String, english: String)
+case class Allergen(name: String)
 
-case class Ingredient(id: Int, name: Name)
+case class Ingredient(id: Int, name: Name, allergen: Allergen)

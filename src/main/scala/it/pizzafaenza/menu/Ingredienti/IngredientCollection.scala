@@ -12,10 +12,11 @@ class IngredientCollection(jsonReader: JsonReader)(implicit
   given Decoder[Ingredient] = new Decoder[Ingredient]:
     final def apply(c: HCursor): Decoder.Result[Ingredient] =
       for
-        id <- c.downField("id").as[Int]
+        id <- c.downField("id_ingrediente").as[Int]
         nameItalian <- c.downField("nome_italiano").as[String]
         nameEnglish <- c.downField("nome_inglese").as[String]
-      yield Ingredient(id, Name(nameItalian, nameEnglish))
+        allergen <- c.downField("tipo").as[String]
+      yield Ingredient(id, Name(nameItalian, nameEnglish), Allergen(allergen))
 
   def getIngredients: Future[List[Ingredient]] =
     jsonReader.read(DBPath).map { content =>

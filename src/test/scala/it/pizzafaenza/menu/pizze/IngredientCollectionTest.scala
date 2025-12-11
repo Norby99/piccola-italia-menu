@@ -10,13 +10,15 @@ import it.pizzafaenza.menu.Ingredienti.{Ingredient, IngredientCollection}
 
 class IngredientCollectionTest extends AsyncFlatSpec with Matchers:
 
-  "IngredientiCollection" should "load gamberetti from a JSON" in:
+  "IngredientCollection" should "load gamberetti from a JSON" in:
     val collection = new IngredientCollection(MockGamberettiReader)
-    val ingredienti: Future[List[Ingredient]] = collection.getIngredients
+    val ingredients: Future[List[Ingredient]] = collection.getIngredients
 
-    ingredienti.map { i =>
+    ingredients.map { i =>
       i.length shouldBe 1
+      i.head.id shouldBe 50
       i.head.name.italian shouldBe "gamberetti"
       i.head.name.english shouldBe "shrimps"
+      i.head.allergen.name shouldBe "Pesce"
       succeed
     }
