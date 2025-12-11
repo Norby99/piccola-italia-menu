@@ -5,7 +5,7 @@ import io.circe.*
 import scala.concurrent.{ExecutionContext, Future}
 
 class PizzeCollection(jsonReader: JsonReader)(implicit ec: ExecutionContext):
-  private val pizzeDBPath = "pizze.json"
+  private val DBPath = "pizze.json"
 
   given Decoder[Pizza] = new Decoder[Pizza]:
     final def apply(c: HCursor): Decoder.Result[Pizza] =
@@ -18,7 +18,7 @@ class PizzeCollection(jsonReader: JsonReader)(implicit ec: ExecutionContext):
       yield Pizza(name, pizzaType, ingredients, price)
 
   def getPizze: Future[List[Pizza]] =
-    jsonReader.read(pizzeDBPath).map { content =>
+    jsonReader.read(DBPath).map { content =>
       content.as[List[Pizza]] match
         case Right(lista) => lista
         case Left(error) =>
