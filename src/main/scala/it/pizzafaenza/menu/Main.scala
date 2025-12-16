@@ -1,33 +1,15 @@
 package it.pizzafaenza.menu
 
-import it.pizzafaenza.menu.ingredients.{Ingredient, IngredientCollection}
-import it.pizzafaenza.menu.pizza.{Pizza, PizzeCollection}
-import it.pizzafaenza.menu.menu.{Menu, MenuDish}
-import it.pizzafaenza.menu.json.BrowserJsonReader
 import com.raquo.laminar.api.L.*
-import it.pizzafaenza.menu.extraToppings.{ExtraTopping, ExtraToppingsCollection}
-import it.pizzafaenza.menu.salads.{Salad, SaladCollection}
 import org.scalajs.dom
 import org.scalajs.dom.window
-
-import scala.concurrent.Future
+import it.pizzafaenza.menu.Ingredienti.IngredientCollection
+import it.pizzafaenza.menu.pizze.{Pizza, PizzeCollection}
+import it.pizzafaenza.menu.json.BrowserJsonReader
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
+import it.pizzafaenza.menu.UIElements.PizzaCellRenderer
 
-def ingredientsFuture: Future[List[Ingredient]] =
-  IngredientCollection(BrowserJsonReader).getIngredients
-
-def pizzeFuture: Future[List[Pizza]] =
-  ingredientsFuture.flatMap { ing =>
-    PizzeCollection(BrowserJsonReader).getPizze(ing)
-  }
-
-def saladFuture: Future[List[Salad]] =
-  ingredientsFuture.flatMap { ing =>
-    SaladCollection(BrowserJsonReader).getSalad(ing)
-  }
-
-def extraToppingFuture: Future[List[ExtraTopping]] =
-  ExtraToppingsCollection(BrowserJsonReader).getExtraTopping
+def text_resizer(n: Float, ratio: Float): Float = n / (2550 / ratio)
 
 @main def runApp(): Unit =
   val windowWidth = Var(window.outerWidth)
@@ -39,20 +21,26 @@ def extraToppingFuture: Future[List[ExtraTopping]] =
     }
   )
 
-  val dishesVar = Var(List.empty[MenuDish])
-  for
-    pizze <- pizzeFuture
-    insalate <- saladFuture
-  yield dishesVar.set(pizze ++ insalate)
+  val ingredientiFuture = IngredientCollection(BrowserJsonReader).getIngredients
 
-  val extraToppingCollection = Var(List.empty[ExtraTopping])
-  for
-    extraToppings <- extraToppingFuture
-  yield extraToppingCollection.set(extraToppings)
+  val pizzeFuture = ingredientiFuture.flatMap { ingrList =>
+    PizzeCollection(BrowserJsonReader).getPizze(ingrList)
+  }
 
-  val menu1 = Menu.menu1(dishesVar)
-  val menu2 = Menu.menu2(dishesVar, extraToppingCollection)
+  val pizzeVar = Var(List.empty[Pizza])
 
-  val app = menu2
+  pizzeFuture.foreach { pizze =>
+    pizzeVar.set(pizze)
+  }
+
+  val app = div(
+    h1("Menu Pizzeria Faenza"),
+    h2("Le nostre pizze"),
+    children <-- pizzeVar.signal.map { pizze =>
+      pizze.map { pizza =>
+        PizzaCellRenderer(pizza).render
+      }
+    }
+  )
 
   renderOnDomContentLoaded(dom.document.getElementById("app"), app)
