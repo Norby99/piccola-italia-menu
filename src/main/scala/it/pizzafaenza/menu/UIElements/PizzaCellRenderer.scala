@@ -2,6 +2,7 @@ package it.pizzafaenza.menu.UIElements
 
 import com.raquo.laminar.api.L.*
 import it.pizzafaenza.menu.pizze.Pizza
+import it.pizzafaenza.menu.utils.stringify
 
 class PizzaCellRenderer(pizza: Pizza) extends CellRenderer:
   @Override
@@ -16,6 +17,7 @@ class PizzaCellRenderer(pizza: Pizza) extends CellRenderer:
         ),
         p(
           cls := "pizza-price",
+          s"€${pizza.price.stringify}"
         )
       ),
       div(
