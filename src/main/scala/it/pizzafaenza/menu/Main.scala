@@ -3,6 +3,7 @@ package it.pizzafaenza.menu
 import com.raquo.laminar.api.L.*
 import org.scalajs.dom
 import org.scalajs.dom.window
+
 import it.pizzafaenza.menu.Ingredienti.IngredientCollection
 import it.pizzafaenza.menu.pizze.{Pizza, PizzeCollection}
 import it.pizzafaenza.menu.json.BrowserJsonReader
@@ -21,10 +22,10 @@ def text_resizer(n: Float, ratio: Float): Float = n / (2550 / ratio)
     }
   )
 
-  val ingredientiFuture = IngredientCollection(BrowserJsonReader).getIngredients
+  val ingredientsFuture = IngredientCollection(BrowserJsonReader).getIngredients
 
-  val pizzeFuture = ingredientiFuture.flatMap { ingrList =>
-    PizzeCollection(BrowserJsonReader).getPizze(ingrList)
+  val pizzeFuture = ingredientsFuture.flatMap { ing =>
+    PizzeCollection(BrowserJsonReader).getPizze(ing)
   }
 
   val pizzeVar = Var(List.empty[Pizza])
@@ -33,10 +34,23 @@ def text_resizer(n: Float, ratio: Float): Float = n / (2550 / ratio)
     pizzeVar.set(pizze)
   }
 
+  val pizzeMenu1 = pizzeVar.signal.map { pizze =>
+    val orderMap = Map(
+      "Pizze classiche" -> 1,
+      "Pizze bianche" -> 2,
+      "Pizze conditissime" -> 3
+    )
+
+    pizze
+      .filter(p =>
+        p.pizzaType == "Pizze classiche" || p.pizzaType == "Pizze bianche" || p.pizzaType == "Pizze conditissime"
+      )
+      .sortBy(p => orderMap.getOrElse(p.pizzaType, Int.MaxValue))
+  }
+
   val app = div(
-    h1("Menu Pizzeria Faenza"),
-    h2("Le nostre pizze"),
-    children <-- pizzeVar.signal.map { pizze =>
+    cls := "pizze",
+    children <-- pizzeMenu1.signal.map { pizze =>
       pizze.map { pizza =>
         PizzaCellRenderer(pizza).render
       }
