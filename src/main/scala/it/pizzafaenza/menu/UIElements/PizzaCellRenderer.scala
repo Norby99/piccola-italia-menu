@@ -7,12 +7,21 @@ class PizzaCellRenderer(pizza: Pizza) extends CellRenderer:
   @Override
   def render: Div =
     div(
-      h3(s"${pizza.name} - €${pizza.price}"),
-      p(s"Tipo: ${pizza.pizzaType}"),
-      h4("Ingredienti:"),
-      ul(
-        pizza.ingredients.map { ingr =>
-          li(s"${ingr.name.italian} (${ingr.allergen.name})")
-        }
+      cls := "pizza-cell",
+      div(
+        cls := "pizza-header",
+        p(
+          cls := "pizza-name",
+          s"${pizza.name}"
+        ),
+        p(
+          cls := "pizza-price",
+        )
+      ),
+      div(
+        cls := "pizza-body",
+        p(
+          pizza.ingredients.map(i => i.name.italian).mkString(", ").capitalize
+        )
       )
     )
