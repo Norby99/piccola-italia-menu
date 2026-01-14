@@ -1,36 +1,20 @@
-package it.pizzafaenza.menu.pizza
+package it.pizzafaenza.menu.pizze
 
 import it.pizzafaenza.menu.json.JsonReader
 import io.circe.*
-import it.pizzafaenza.menu.ingredients.Ingredient
-import it.pizzafaenza.menu.menu.{MenuDishCollection, PizzaCategory}
+import it.pizzafaenza.menu.Ingredienti.Ingredient
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class PizzeCollection(jsonReader: JsonReader)(implicit ec: ExecutionContext)
-    extends MenuDishCollection[Pizza](
-      jsonReader,
-      "data/pizze.json",
-      PizzeCollection.pizzaDecoder
-    ):
+class PizzeCollection(jsonReader: JsonReader)(implicit ec: ExecutionContext):
+  private val DBPath = "data/pizze.json"
 
-  def getPizze(ingredients: List[Ingredient]): Future[List[Pizza]] =
-    getDish(ingredients)
-
-object PizzeCollection:
   private def pizzaDecoder(ingredients: List[Ingredient]): Decoder[Pizza] =
     new Decoder[Pizza]:
       def apply(c: HCursor): Decoder.Result[Pizza] =
         for
           name <- c.downField("nomePizza").as[String]
-          category <-
-            c.downField("nome_tipo").as[String].flatMap { typeStr =>
-              PizzaCategory.values.find(_.title == typeStr)
-                .toRight(DecodingFailure(
-                  s"Pizza category not found: $typeStr",
-                  c.history
-                ))
-            }
+          pizzaType <- c.downField("nome_tipo").as[String]
           ingr <-
             val ingIds: List[Int] =
               c.downField("ingredienti").as[String].map(
@@ -46,4 +30,13 @@ object PizzeCollection:
                   )
                 )
           price <- c.downField("prezzo").as[String].map(_.toDouble)
-        yield Pizza(name, category, ingr, price)
+        yield Pizza(name, pizzaType, ingr, price)
+
+  def getPizze(ingredients: List[Ingredient]): Future[List[Pizza]] =
+    jsonReader.read(DBPath).map { content =>
+      given Decoder[Pizza] = pizzaDecoder(ingredients)
+      content.as[List[Pizza]] match
+        case Right(l) => l
+        case Left(error) =>
+          throw new Exception(s"Failed to decode Pizze: $error")
+    }
