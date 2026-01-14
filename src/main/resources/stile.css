@@ -24,8 +24,7 @@ body {
     margin: 0;
     font-weight: bold;
     color: var(--generic-text-color);
-    font-size: clamp(1rem, 1.5vw, 1.5rem);
-    text-align: center;
+    font-size: 1.5vw;
 }
 
 .pizze {
@@ -58,14 +57,14 @@ body {
     font-weight: bold;
     text-align: left;
     color: var(--title-color);
-    font-size: clamp(0.8rem, 1.2vw, 1.2rem);
+    font-size: 1.2vw;
 }
 
 .pizza-price {
     font-weight: bold;
     text-align: right;
     color: var(--price-color);
-    font-size: clamp(0.7rem, 1.1vw, 1.1rem);
+    font-size: 1.1vw;
 }
 
 .pizza-body {
@@ -77,5 +76,5 @@ body {
 .pizza-ingredients {
     margin: 0;
     padding: 0;
-    font-size: clamp(0.7rem, 0.9vw, 0.9rem);
+    font-size: 0.9vw;
 }
