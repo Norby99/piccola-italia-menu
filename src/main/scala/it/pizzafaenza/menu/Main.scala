@@ -3,13 +3,13 @@ package it.pizzafaenza.menu
 import com.raquo.laminar.api.L.*
 import org.scalajs.dom
 import org.scalajs.dom.window
-
 import it.pizzafaenza.menu.Ingredienti.IngredientCollection
 import it.pizzafaenza.menu.pizze.{Pizza, PizzeCollection}
 import it.pizzafaenza.menu.pizze.PizzaCategory.*
 import it.pizzafaenza.menu.json.BrowserJsonReader
+
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
-import it.pizzafaenza.menu.UIElements.PizzaCellRenderer
+import it.pizzafaenza.menu.UIElements.{CategoryCellRenderer, PizzaCellRenderer}
 
 def text_resizer(n: Float, ratio: Float): Float = n / (2550 / ratio)
 
@@ -37,21 +37,28 @@ def text_resizer(n: Float, ratio: Float): Float = n / (2550 / ratio)
 
   val menu1 = pizzeVar.signal.map { pizze =>
     val orderMap = Map(
-      Classiche -> 1,
-      Bianche -> 2,
-      Conditissime -> 3
+      Classiche -> 1
+      /*Bianche -> 2,
+      Conditissime -> 3,
+      Stese -> 4*/
     )
 
     pizze
       .filter(p => orderMap.contains(p.category))
-      .sortBy(p => orderMap.getOrElse(p.category, Int.MaxValue))
+      .groupBy(_.category)
+      .toSeq
+      .sortBy { case (category, _) =>
+        orderMap.getOrElse(category, Int.MaxValue)
+      }
   }
 
   val app = div(
     cls := "pizze",
-    children <-- menu1.signal.map { pizze =>
-      pizze.map { pizza =>
-        PizzaCellRenderer(pizza).render
+    children <-- menu1.map { grouped =>
+      grouped.flatMap { case (category, pizze) =>
+        CategoryCellRenderer(category).render +: pizze.map { pizza =>
+          PizzaCellRenderer(pizza).render
+        }
       }
     }
   )
