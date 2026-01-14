@@ -43,7 +43,7 @@ class PizzeCollection(jsonReader: JsonReader)(implicit ec: ExecutionContext):
     jsonReader.read(DBPath).map { content =>
       given Decoder[Pizza] = pizzaDecoder(ingredients)
 
-      println("Deconding...")
+      println("Decoding...")
       io.circe.parser.parse(content.noSpaces) match
         case Right(json) =>
           val res = json.asArray match
