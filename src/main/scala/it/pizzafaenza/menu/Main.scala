@@ -34,7 +34,7 @@ def text_resizer(n: Float, ratio: Float): Float = n / (2550 / ratio)
     pizzeVar.set(pizze)
   }
 
-  val pizzeMenu1 = pizzeVar.signal.map { pizze =>
+  val menu1 = pizzeVar.signal.map { pizze =>
     val orderMap = Map(
       "Pizze classiche" -> 1,
       "Pizze bianche" -> 2,
@@ -50,7 +50,7 @@ def text_resizer(n: Float, ratio: Float): Float = n / (2550 / ratio)
 
   val app = div(
     cls := "pizze",
-    children <-- pizzeMenu1.signal.map { pizze =>
+    children <-- menu1.signal.map { pizze =>
       pizze.map { pizza =>
         PizzaCellRenderer(pizza).render
       }
