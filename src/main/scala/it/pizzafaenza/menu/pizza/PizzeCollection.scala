@@ -42,8 +42,23 @@ class PizzeCollection(jsonReader: JsonReader)(implicit ec: ExecutionContext):
   def getPizze(ingredients: List[Ingredient]): Future[List[Pizza]] =
     jsonReader.read(DBPath).map { content =>
       given Decoder[Pizza] = pizzaDecoder(ingredients)
-      content.as[List[Pizza]] match
-        case Right(l) => l
+
+      println("Deconding...")
+      io.circe.parser.parse(content.noSpaces) match
+        case Right(json) =>
+          val res = json.asArray match
+            case Some(pizzeArray) =>
+              pizzeArray.flatMap { pizzaJson =>
+                pizzaJson.as[Pizza] match
+                  case Right(pizza) => Some(pizza)
+                  case Left(error) =>
+                    println(s"Skipping pizza: ${error.getMessage}")
+                    None
+              }.toList
+            case None =>
+              throw new Exception("JSON is not an array")
+          println("Decoded pizze: " + res.size)
+          res
         case Left(error) =>
-          throw new Exception(s"Failed to decode Pizze: $error")
+          throw new Exception(s"Failed to parse JSON: $error")
     }
