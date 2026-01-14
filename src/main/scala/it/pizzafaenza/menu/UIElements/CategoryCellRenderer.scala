@@ -1,16 +1,16 @@
 package it.pizzafaenza.menu.UIElements
 
-import com.raquo.laminar.api.L.*
-import it.pizzafaenza.menu.menu.MenuCategory
+import it.pizzafaenza.menu.pizze.PizzaCategory
 
-class CategoryCellRenderer(category: MenuCategory) extends CellRenderer:
+import com.raquo.laminar.api.L.*
+
+class CategoryCellRenderer(category: PizzaCategory) extends CellRenderer:
   @Override
-  def render(heightProportion: Int): Div =
+  def render: Div =
     div(
       cls := "pizza-cell category-cell",
-      styleAttr := s"--elements-per-column: $heightProportion",
       p(
-        cls := "category-name upper-bottom-border",
-        category.title
+        cls := "category-name",
+        category.description
       )
     )
