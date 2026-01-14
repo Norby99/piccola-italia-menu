@@ -14,7 +14,14 @@ class PizzeCollection(jsonReader: JsonReader)(implicit ec: ExecutionContext):
       def apply(c: HCursor): Decoder.Result[Pizza] =
         for
           name <- c.downField("nomePizza").as[String]
-          pizzaType <- c.downField("nome_tipo").as[String]
+          category <-
+            c.downField("nome_tipo").as[String].flatMap { typeStr =>
+              PizzaCategory.values.find(_.description == typeStr)
+                .toRight(DecodingFailure(
+                  s"Pizza category not found: $typeStr",
+                  c.history
+                ))
+            }
           ingr <-
             val ingIds: List[Int] =
               c.downField("ingredienti").as[String].map(
@@ -30,7 +37,7 @@ class PizzeCollection(jsonReader: JsonReader)(implicit ec: ExecutionContext):
                   )
                 )
           price <- c.downField("prezzo").as[String].map(_.toDouble)
-        yield Pizza(name, pizzaType, ingr, price)
+        yield Pizza(name, category, ingr, price)
 
   def getPizze(ingredients: List[Ingredient]): Future[List[Pizza]] =
     jsonReader.read(DBPath).map { content =>
