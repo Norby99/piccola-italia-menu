@@ -4,7 +4,7 @@ import it.pizzafaenza.menu.Ingredienti.Ingredient
 
 case class Pizza(
     name: String,
-    pizzaType: String,
+    category: PizzaCategory,
     ingredients: List[Ingredient],
     price: Double
 )
