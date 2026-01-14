@@ -43,9 +43,7 @@ def text_resizer(n: Float, ratio: Float): Float = n / (2550 / ratio)
     )
 
     pizze
-      .filter(p =>
-        p.category == Classiche || p.category == Bianche || p.category == Conditissime
-      )
+      .filter(p => orderMap.contains(p.category))
       .sortBy(p => orderMap.getOrElse(p.category, Int.MaxValue))
   }
 
