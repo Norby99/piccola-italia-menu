@@ -6,6 +6,7 @@ import org.scalajs.dom.window
 
 import it.pizzafaenza.menu.Ingredienti.IngredientCollection
 import it.pizzafaenza.menu.pizze.{Pizza, PizzeCollection}
+import it.pizzafaenza.menu.pizze.PizzaCategory.*
 import it.pizzafaenza.menu.json.BrowserJsonReader
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 import it.pizzafaenza.menu.UIElements.PizzaCellRenderer
@@ -36,16 +37,16 @@ def text_resizer(n: Float, ratio: Float): Float = n / (2550 / ratio)
 
   val menu1 = pizzeVar.signal.map { pizze =>
     val orderMap = Map(
-      "Pizze classiche" -> 1,
-      "Pizze bianche" -> 2,
-      "Pizze conditissime" -> 3
+      Classiche -> 1,
+      Bianche -> 2,
+      Conditissime -> 3
     )
 
     pizze
       .filter(p =>
-        p.pizzaType == "Pizze classiche" || p.pizzaType == "Pizze bianche" || p.pizzaType == "Pizze conditissime"
+        p.category == Classiche || p.category == Bianche || p.category == Conditissime
       )
-      .sortBy(p => orderMap.getOrElse(p.pizzaType, Int.MaxValue))
+      .sortBy(p => orderMap.getOrElse(p.category, Int.MaxValue))
   }
 
   val app = div(
