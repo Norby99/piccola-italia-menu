@@ -7,7 +7,7 @@ import it.pizzafaenza.menu.Ingredienti.Ingredient
 import scala.concurrent.{ExecutionContext, Future}
 
 class PizzeCollection(jsonReader: JsonReader)(implicit ec: ExecutionContext):
-  private val DBPath = "pizze.json"
+  private val DBPath = "data/pizze.json"
 
   private def pizzaDecoder(ingredients: List[Ingredient]): Decoder[Pizza] =
     new Decoder[Pizza]:

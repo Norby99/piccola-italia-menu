@@ -7,7 +7,7 @@ import scala.concurrent.{ExecutionContext, Future}
 class IngredientCollection(jsonReader: JsonReader)(implicit
     ec: ExecutionContext
 ):
-  private val DBPath = "ingredienti.json"
+  private val DBPath = "data/ingredienti.json"
 
   given Decoder[Ingredient] = new Decoder[Ingredient]:
     final def apply(c: HCursor): Decoder.Result[Ingredient] =
