@@ -23,6 +23,7 @@ class PizzaCellRenderer(pizza: Pizza) extends CellRenderer:
       div(
         cls := "pizza-body",
         p(
+          cls := "pizza-ingredients",
           pizza.ingredients.map(i => i.name.italian).mkString(", ").capitalize
         )
       )
