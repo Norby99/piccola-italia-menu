@@ -3,6 +3,8 @@
     --paragraph-color: #FFFFFF;
     --title-color: #EF233C;
     --generic-text-color: #F5E9E2;
+    --generic-text-outline-color: #000000;
+    --generic-text-shadow-color: #BBBBBB;
     --price-color: #FDC500;
     --category-border-color: #ff8000;
     --font-family: 'Times New Roman';
@@ -25,6 +27,13 @@ body {
     font-weight: bold;
     color: var(--generic-text-color);
     font-size: 1.5vw;
+
+    text-shadow:    /* It makes sense to use px instead of rem cuz there must be a difference and it has to be minimal */
+      -1px -1px 0 var(--generic-text-outline-color),
+       1px -1px 0 var(--generic-text-outline-color),
+      -1px  1px 0 var(--generic-text-outline-color),
+       1px  1px 0 var(--generic-text-outline-color),
+       0.05em 0.05em var(--generic-text-shadow-color);
 }
 
 .pizze {
