@@ -4,6 +4,7 @@
     --title-color: #EF233C;
     --generic-text-color: #F5E9E2;
     --price-color: #FDC500;
+    --category-border-color: #ff8000;
     --font-family: 'Times New Roman';
 }
 
@@ -16,7 +17,6 @@ body {
 
 .category-cell {
     display: flex;
-    align-items: center;
     justify-content: center;
 }
 
@@ -81,4 +81,14 @@ body {
     margin: 0;
     padding: 0;
     font-size: 0.9vw;
+}
+
+.upper-bottom-border {
+  border-top: 0.25rem solid var(--category-border-color);
+  border-bottom: 0.25rem solid var(--category-border-color);
+  border-left: none;
+  border-right: none;
+
+  padding: 0.6rem 0;    /* To add space between the text and the line*/
+  margin-right: 2rem;   /* To make the line finish before the edge of the box */
 }
