@@ -37,10 +37,10 @@ def text_resizer(n: Float, ratio: Float): Float = n / (2550 / ratio)
 
   val menu1 = pizzeVar.signal.map { pizze =>
     val orderMap = Map(
-      Classiche -> 1
-      /*Bianche -> 2,
+      Classiche -> 1,
+      Bianche -> 2,
       Conditissime -> 3,
-      Stese -> 4*/
+      Stese -> 4
     )
 
     pizze
