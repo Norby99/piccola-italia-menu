@@ -10,7 +10,7 @@ class CategoryCellRenderer(category: PizzaCategory) extends CellRenderer:
     div(
       cls := "pizza-cell category-cell",
       p(
-        cls := "category-name",
+        cls := "category-name upper-bottom-border",
         category.description
       )
     )
