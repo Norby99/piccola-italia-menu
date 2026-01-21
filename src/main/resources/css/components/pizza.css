@@ -1,20 +1,18 @@
 .pizze {
+    background-color: red;
+
     color: var(--generic-text-color);
     font-family: var(--font-family);
-
-    /* background-color: red; */ /* Debugging purpose */
 }
 
 .pizze-grid {
     --column-count: 5;
-    --column-gap: 1vw;
-
     -webkit-column-count: var(--column-count);
-    -webkit-column-gap: var(--column-gap);
+    -webkit-column-gap: 0.5vw;
     -moz-column-count: var(--column-count);
-    -moz-column-gap: var(--column-gap);
+    -moz-column-gap: 1vw;
     column-count: var(--column-count);
-    column-gap: var(--column-gap);
+    column-gap: 0.5vw;
 
     column-fill: auto;
 }
@@ -22,14 +20,14 @@
 .pizza-cell {
     --elements-per-column: 15;
     break-inside: avoid;
-    height: calc(100% / var(--elements-per-column));
+    height: calc((100vh - var(--whole-content-margin)*2) / var(--elements-per-column));
 
     margin: 0;
     display: flex;
     flex-direction: column;
     overflow: hidden;
 
-    /*background-color: blue; */    /* Debugging purpose */
+    background-color: blue;
 }
 
 .pizza-header {
