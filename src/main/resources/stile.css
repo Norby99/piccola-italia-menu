@@ -8,6 +8,8 @@
     --price-color: #FDC500;
     --category-border-color: #ff8000;
     --font-family: 'Times New Roman';
+
+    --whole-content-margin: 1vh;
 }
 
 body {
@@ -43,7 +45,7 @@ body {
 /* This is to add a margin to everything */
 .full-screen-margin {
     position: fixed;
-    inset: 1vh;
+    inset: var(--whole-content-margin);
     overflow: hidden;
 }
 
@@ -55,19 +57,21 @@ body {
 }
 
 .pizze-grid {
-    -webkit-column-count: 5;
-    -webkit-column-gap: 1vw;
-    -moz-column-count: 2;
+    --column-count: 5;
+    -webkit-column-count: var(--column-count);
+    -webkit-column-gap: 0.5vw;
+    -moz-column-count: var(--column-count);
     -moz-column-gap: 1vw;
-    column-count: 5;
-    column-gap: 1vw;
+    column-count: var(--column-count);
+    column-gap: 0.5vw;
 
     column-fill: auto;
 }
 
 .pizza-cell {
+    --elements-per-column: 15;
     break-inside: avoid;
-    height: calc((100vh - 1vh*2) / 15);
+    height: calc((100vh - var(--whole-content-margin)*2) / var(--elements-per-column));
 
     margin: 0;
     display: flex;
