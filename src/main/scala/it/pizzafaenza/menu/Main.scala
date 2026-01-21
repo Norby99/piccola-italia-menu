@@ -11,8 +11,6 @@ import it.pizzafaenza.menu.json.BrowserJsonReader
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 import it.pizzafaenza.menu.UIElements.{CategoryCellRenderer, PizzaCellRenderer}
 
-def text_resizer(n: Float, ratio: Float): Float = n / (2550 / ratio)
-
 @main def runApp(): Unit =
   val windowWidth = Var(window.outerWidth)
 
