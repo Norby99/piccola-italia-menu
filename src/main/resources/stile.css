@@ -10,6 +10,11 @@
     --font-family: 'Times New Roman';
 
     --whole-content-margin: 1vh;
+
+    --category-font-size: 3.5vh;
+    --pizza_name-font-size: 1.2vw;
+    --pizza_price-font-size: 1.0vw;
+    --pizza_ingredients-font-size: 0.8vw;
 }
 
 body {
@@ -31,7 +36,7 @@ body {
     margin: 0;
     font-weight: bold;
     color: var(--generic-text-color);
-    font-size: 3vh;
+    font-size: var(--category-font-size);
 
     /* It makes sense to use px instead of rem cuz there must be a difference and it has to be minimal */
     text-shadow:
@@ -93,7 +98,7 @@ body {
     font-weight: bold;
     text-align: left;
     color: var(--title-color);
-    font-size: 1.2vw;
+    font-size: var(--pizza_name-font-size);
 }
 
 .pizza-price {
@@ -101,7 +106,7 @@ body {
     font-weight: bold;
     text-align: right;
     color: var(--price-color);
-    font-size: 1.1vw;
+    font-size: var(--pizza_price-font-size);
 }
 
 .pizza-body {
@@ -114,6 +119,7 @@ body {
     margin: 0;
     padding: 0;
     font-size: 0.9vw;
+    font-size: var(--pizza_ingredients-font-size);
 }
 
 .upper-bottom-border {
@@ -122,6 +128,6 @@ body {
   border-left: none;
   border-right: none;
 
-  padding: 2% 0;    /* To add space between the text and the line*/
+  padding: 0.5% 0 2% 0;    /* To add space between the text and the line*/
   margin-right: 10%;   /* To make the line finish before the edge of the box */
 }
