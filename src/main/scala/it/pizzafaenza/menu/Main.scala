@@ -52,8 +52,13 @@ def text_resizer(n: Float, ratio: Float): Float = n / (2550 / ratio)
       }
   }
 
+  val columnCount = 5
+
   val app = div(
     cls := "pizze full-screen-margin pizze-grid",
+    onMountCallback(ctx =>
+      ctx.thisNode.ref.style.setProperty("--column-count", columnCount.toString)
+    ),
     children <-- menu1.map { grouped =>
       grouped.flatMap { case (category, pizze) =>
         CategoryCellRenderer(category).render +: pizze.map { pizza =>
