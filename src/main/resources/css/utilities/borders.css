@@ -1,6 +1,6 @@
 .upper-bottom-border {
-  border-top: 0.35vh solid var(--category-border-color);
-  border-bottom: 0.35vh solid var(--category-border-color);
+  border-top: 0.25vh solid var(--category-border-color);
+  border-bottom: 0.25vh solid var(--category-border-color);
   border-left: none;
   border-right: none;
 

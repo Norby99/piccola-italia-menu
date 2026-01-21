@@ -1,18 +1,19 @@
 .pizze {
-    /* background-color: red; */ /* Debugging purpose */
-
     color: var(--generic-text-color);
     font-family: var(--font-family);
+
+    /* background-color: red; */ /* Debugging purpose */
 }
 
 .pizze-grid {
     --column-count: 5;
+    --column-gap: 1vw;
     -webkit-column-count: var(--column-count);
-    -webkit-column-gap: 0.5vw;
+    -webkit-column-gap: var(--column-gap);
     -moz-column-count: var(--column-count);
-    -moz-column-gap: 1vw;
+    -moz-column-gap: var(--column-gap);
     column-count: var(--column-count);
-    column-gap: 0.5vw;
+    column-gap: var(--column-gap);
 
     column-fill: auto;
 }
