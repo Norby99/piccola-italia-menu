@@ -1,0 +1,18 @@
+:root {
+    --background-color: #0B0014;
+    --paragraph-color: #FFFFFF;
+    --title-color: #EF233C;
+    --generic-text-color: #F5E9E2;
+    --generic-text-outline-color: #000000;
+    --generic-text-shadow-color: #BBBBBB;
+    --price-color: #FDC500;
+    --category-border-color: #ff8000;
+    --font-family: 'Times New Roman';
+
+    --whole-content-margin: 1vh;
+
+    --category-font-size: 3.5vh;
+    --pizza_name-font-size: 1.2vw;
+    --pizza_price-font-size: 1.0vw;
+    --pizza_ingredients-font-size: 0.8vw;
+}
