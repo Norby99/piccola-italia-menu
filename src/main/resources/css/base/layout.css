@@ -1,0 +1,16 @@
+body {
+    background-color: var(--background-color);
+
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+
+    background-color: green;
+}
+
+/* This is to add a margin to everything */
+.full-screen-margin {
+    position: fixed;
+    inset: var(--whole-content-margin);
+    overflow: hidden;
+}

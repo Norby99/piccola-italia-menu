@@ -1,0 +1,19 @@
+.category-cell {
+    display: flex;
+    justify-content: center;
+}
+
+.category-name {
+    margin: 0;
+    font-weight: bold;
+    color: var(--generic-text-color);
+    font-size: var(--category-font-size);
+
+    /* It makes sense to use px instead of rem cuz there must be a difference and it has to be minimal */
+    text-shadow:
+      -1px -1px 0 var(--generic-text-outline-color),
+       1px -1px 0 var(--generic-text-outline-color),
+      -1px  1px 0 var(--generic-text-outline-color),
+       1px  1px 0 var(--generic-text-outline-color),
+       0.05em 0.05em var(--generic-text-shadow-color);
+}
