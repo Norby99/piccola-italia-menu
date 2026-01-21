@@ -53,7 +53,7 @@ def text_resizer(n: Float, ratio: Float): Float = n / (2550 / ratio)
   }
 
   val app = div(
-    cls := "pizze",
+    cls := "pizze full-screen-margin pizze-grid",
     children <-- menu1.map { grouped =>
       grouped.flatMap { case (category, pizze) =>
         CategoryCellRenderer(category).render +: pizze.map { pizza =>
