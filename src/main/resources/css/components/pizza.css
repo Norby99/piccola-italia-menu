@@ -8,6 +8,7 @@
 .pizze-grid {
     --column-count: 5;
     --column-gap: 1vw;
+
     -webkit-column-count: var(--column-count);
     -webkit-column-gap: var(--column-gap);
     -moz-column-count: var(--column-count);
