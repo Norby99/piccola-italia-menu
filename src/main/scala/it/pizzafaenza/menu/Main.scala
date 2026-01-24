@@ -1,15 +1,17 @@
 package it.pizzafaenza.menu
 
-import com.raquo.laminar.api.L.*
-import org.scalajs.dom
-import org.scalajs.dom.window
 import it.pizzafaenza.menu.Ingredienti.IngredientCollection
 import it.pizzafaenza.menu.pizze.{Pizza, PizzeCollection}
 import it.pizzafaenza.menu.pizze.PizzaCategory.*
+import it.pizzafaenza.menu.menu.Menu
 import it.pizzafaenza.menu.json.BrowserJsonReader
 
-import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 import it.pizzafaenza.menu.UIElements.{CategoryCellRenderer, PizzaCellRenderer}
+
+import com.raquo.laminar.api.L.*
+import org.scalajs.dom
+import org.scalajs.dom.window
+import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 
 @main def runApp(): Unit =
   val windowWidth = Var(window.outerWidth)
@@ -33,37 +35,9 @@ import it.pizzafaenza.menu.UIElements.{CategoryCellRenderer, PizzaCellRenderer}
     pizzeVar.set(pizze)
   }
 
-  val menu1 = pizzeVar.signal.map { pizze =>
-    val orderMap = Map(
-      Classiche -> 1,
-      Bianche -> 2,
-      Conditissime -> 3,
-      Stese -> 4
-    )
+  val menu1 = Menu.menu1(pizzeVar)
+  val menu2 = Menu.menu2(pizzeVar)
 
-    pizze
-      .filter(p => orderMap.contains(p.category))
-      .groupBy(_.category)
-      .toSeq
-      .sortBy { case (category, _) =>
-        orderMap.getOrElse(category, Int.MaxValue)
-      }
-  }
-
-  val columnCount = 5
-
-  val app = div(
-    cls := "pizze full-screen-margin pizze-grid",
-    onMountCallback(ctx =>
-      ctx.thisNode.ref.style.setProperty("--column-count", columnCount.toString)
-    ),
-    children <-- menu1.map { grouped =>
-      grouped.flatMap { case (category, pizze) =>
-        CategoryCellRenderer(category).render +: pizze.map { pizza =>
-          PizzaCellRenderer(pizza).render
-        }
-      }
-    }
-  )
+  val app = menu2
 
   renderOnDomContentLoaded(dom.document.getElementById("app"), app)
