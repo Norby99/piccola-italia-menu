@@ -1,57 +1,36 @@
 package it.pizzafaenza.menu.menu
 
 import com.raquo.laminar.api.L.*
-import it.pizzafaenza.menu.UIElements.{
-  CategoryCellRenderer,
-  CellRenderer,
-  DishCellRenderer,
-  ExtraToppingCellRenderer,
-  ImageArrayCellRenderer,
-  ImageCellRenderer,
-  NewColumnCellRenderer
-}
-import it.pizzafaenza.menu.extraToppings.ExtraTopping
+import com.raquo.laminar.tags.HtmlTag
+import it.pizzafaenza.menu.UIElements.{CategoryCellRenderer, PizzaCellRenderer}
+import it.pizzafaenza.menu.pizze.{Pizza, PizzaCategory}
 
 object Menu:
-  def menu1(dishes: Var[List[MenuDish]]): Div =
-    val orderMap: Map[MenuCategory, Int] = Map(
+  def menu1(pizze: Var[List[Pizza]]): Div =
+    val orderMap = Map(
       PizzaCategory.Classiche -> 1,
       PizzaCategory.Bianche -> 2,
       PizzaCategory.Conditissime -> 3,
       PizzaCategory.Stese -> 4
     )
 
-    val pizzaList = createPizzaList(dishes, orderMap)
-    createUI(pizzaList, columnCount = 5, rowCount = 15)
+    val pizzeList = createMenu(pizze, orderMap)
+    createUI(pizzeList, columnCount = 5, rowCount = 15)
 
-  def menu2(
-      dishes: Var[List[MenuDish]],
-      extToppings: Var[List[ExtraTopping]]
-  ): Div =
-    val orderMap: Map[MenuCategory, Int] = Map(
+  def menu2(pizze: Var[List[Pizza]]): Div =
+    val orderMap = Map(
       PizzaCategory.Napoletano -> 1,
-      PizzaCategory.Dolci -> 2,
-      SaladCategory.Salad -> 3
+      PizzaCategory.Dolci -> 2
     )
 
-    val pizzaList = createPizzaList(dishes, orderMap)
-    val extraToppingList = createExtraToppingList(extToppings)
-    val combinedList = Signal.combine(pizzaList, extraToppingList).map {
-      case (pizzas, toppings) =>
-        pizzas ++
-          Seq(NewColumnCellRenderer()) ++
-          toppings ++
-          Seq(NewColumnCellRenderer()) ++
-          Seq(createLogo) ++
-          Seq(createSocialLogos)
-    }
-    createUI(combinedList, columnCount = 4, rowCount = 14)
+    val pizzeList = createMenu(pizze, orderMap)
+    createUI(pizzeList, columnCount = 4, rowCount = 14)
 
-  private def createPizzaList(
-      dishes: Var[List[MenuDish]],
-      orderMap: Map[MenuCategory, Int] = Map.empty
-  ): Signal[Seq[CellRenderer]] =
-    dishes.signal.map { p =>
+  private def createMenu(
+      pizze: Var[List[Pizza]],
+      orderMap: Map[PizzaCategory, Int]
+  ): Signal[Seq[(PizzaCategory, List[Pizza])]] =
+    pizze.signal.map { p =>
       p
         .filter(p => orderMap.contains(p.category))
         .groupBy(_.category)
@@ -59,34 +38,10 @@ object Menu:
         .sortBy { case (category, _) =>
           orderMap.getOrElse(category, Int.MaxValue)
         }
-        .flatMap { case (category, dishList) =>
-          CategoryCellRenderer(category) +: dishList.map(DishCellRenderer(_))
-        }
     }
-
-  private def createExtraToppingList(
-      dishes: Var[List[ExtraTopping]]
-  ): Signal[Seq[CellRenderer]] =
-    dishes.signal.map { p =>
-      if (p.isEmpty) Seq.empty
-      else
-        CategoryCellRenderer(ExtraToppingCategory.ExtraTopping) +: p.map(
-          ExtraToppingCellRenderer(_)
-        )
-    }
-
-  private def createLogo: CellRenderer =
-    ImageCellRenderer("image/Piccola-Italia-logo.png")
-
-  private def createSocialLogos: CellRenderer =
-    ImageArrayCellRenderer(Seq(
-      ImageCellRenderer("image/socials/Facebook-logo.png"),
-      ImageCellRenderer("image/socials/Instagram-logo.png"),
-      ImageCellRenderer("image/socials/TripAdvisor-Logo.png")
-    ))
 
   private def createUI(
-      cellList: Signal[Seq[CellRenderer]],
+      pizzeList: Signal[Seq[(PizzaCategory, List[Pizza])]],
       columnCount: Int = 5,
       rowCount: Int = 15
   ): Div =
@@ -98,5 +53,11 @@ object Menu:
           columnCount.toString
         )
       ),
-      children <-- cellList.map(_.map(_.render(rowCount)))
+      children <-- pizzeList.map { grouped =>
+        grouped.flatMap { case (category, pizze) =>
+          CategoryCellRenderer(category).render +: pizze.map { pizza =>
+            PizzaCellRenderer(pizza).render
+          }
+        }
+      }
     )
