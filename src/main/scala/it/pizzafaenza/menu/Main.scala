@@ -2,11 +2,8 @@ package it.pizzafaenza.menu
 
 import it.pizzafaenza.menu.Ingredienti.IngredientCollection
 import it.pizzafaenza.menu.pizze.{Pizza, PizzeCollection}
-import it.pizzafaenza.menu.pizze.PizzaCategory.*
 import it.pizzafaenza.menu.menu.Menu
 import it.pizzafaenza.menu.json.BrowserJsonReader
-
-import it.pizzafaenza.menu.UIElements.{CategoryCellRenderer, PizzaCellRenderer}
 
 import com.raquo.laminar.api.L.*
 import org.scalajs.dom
