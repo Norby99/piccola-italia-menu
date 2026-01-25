@@ -1,4 +1,4 @@
-package it.pizzafaenza.menu.pizze
+package it.pizzafaenza.menu.pizza
 
 enum PizzaCategory(val description: String):
   case Classiche extends PizzaCategory("Pizze classiche")
