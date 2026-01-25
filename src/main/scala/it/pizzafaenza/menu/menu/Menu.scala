@@ -1,9 +1,8 @@
 package it.pizzafaenza.menu.menu
 
 import com.raquo.laminar.api.L.*
-import com.raquo.laminar.tags.HtmlTag
 import it.pizzafaenza.menu.UIElements.{CategoryCellRenderer, PizzaCellRenderer}
-import it.pizzafaenza.menu.pizze.{Pizza, PizzaCategory}
+import it.pizzafaenza.menu.pizza.{Pizza, PizzaCategory}
 
 object Menu:
   def menu1(pizze: Var[List[Pizza]]): Div =

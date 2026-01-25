@@ -1,4 +1,4 @@
-package it.pizzafaenza.menu.Ingredienti
+package it.pizzafaenza.menu.ingredients
 
 import it.pizzafaenza.menu.json.JsonReader
 import io.circe.*

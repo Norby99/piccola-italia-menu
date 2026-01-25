@@ -1,6 +1,6 @@
 package it.pizzafaenza.menu.UIElements
 
-import it.pizzafaenza.menu.pizze.PizzaCategory
+import it.pizzafaenza.menu.pizza.PizzaCategory
 
 import com.raquo.laminar.api.L.*
 

@@ -1,6 +1,6 @@
-package it.pizzafaenza.menu.pizze
+package it.pizzafaenza.menu.pizza
 
-import it.pizzafaenza.menu.Ingredienti.Ingredient
+import it.pizzafaenza.menu.ingredients.Ingredient
 
 case class Pizza(
     name: String,

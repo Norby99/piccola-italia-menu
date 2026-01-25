@@ -1,4 +1,4 @@
-package it.pizzafaenza.menu.Ingredienti
+package it.pizzafaenza.menu.ingredients
 
 case class Name(italian: String, english: String)
 case class Allergen(name: String)

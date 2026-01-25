@@ -1,7 +1,7 @@
 package it.pizzafaenza.menu
 
-import it.pizzafaenza.menu.Ingredienti.IngredientCollection
-import it.pizzafaenza.menu.pizze.{Pizza, PizzeCollection}
+import it.pizzafaenza.menu.ingredients.IngredientCollection
+import it.pizzafaenza.menu.pizza.{Pizza, PizzeCollection}
 import it.pizzafaenza.menu.menu.Menu
 import it.pizzafaenza.menu.json.BrowserJsonReader
 
