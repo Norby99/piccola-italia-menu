@@ -1,12 +1,11 @@
-package it.pizzafaenza.menu.pizze
+package it.pizzafaenza.menu.ingredients
 
-import scala.concurrent.Future
-
+import it.pizzafaenza.menu.ingredients.{Ingredient, IngredientCollection}
+import it.pizzafaenza.menu.mock.MockGamberettiReader
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should.Matchers
 
-import it.pizzafaenza.menu.mock.MockGamberettiReader
-import it.pizzafaenza.menu.Ingredienti.{Ingredient, IngredientCollection}
+import scala.concurrent.Future
 
 class IngredientCollectionTest extends AsyncFlatSpec with Matchers:
 

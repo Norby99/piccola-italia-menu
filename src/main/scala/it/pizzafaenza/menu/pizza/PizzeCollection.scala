@@ -1,8 +1,8 @@
-package it.pizzafaenza.menu.pizze
+package it.pizzafaenza.menu.pizza
 
 import it.pizzafaenza.menu.json.JsonReader
 import io.circe.*
-import it.pizzafaenza.menu.Ingredienti.Ingredient
+import it.pizzafaenza.menu.ingredients.Ingredient
 
 import scala.concurrent.{ExecutionContext, Future}
 

@@ -1,7 +1,7 @@
 package it.pizzafaenza.menu.UIElements
 
 import com.raquo.laminar.api.L.*
-import it.pizzafaenza.menu.pizze.Pizza
+import it.pizzafaenza.menu.pizza.Pizza
 import it.pizzafaenza.menu.utils.stringify
 
 class PizzaCellRenderer(pizza: Pizza, rowCount: Int)
