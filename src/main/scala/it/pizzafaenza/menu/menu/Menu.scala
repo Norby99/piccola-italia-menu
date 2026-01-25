@@ -56,7 +56,7 @@ object Menu:
       children <-- pizzeList.map { grouped =>
         grouped.flatMap { case (category, pizze) =>
           CategoryCellRenderer(category).render +: pizze.map { pizza =>
-            PizzaCellRenderer(pizza).render
+            PizzaCellRenderer(pizza, rowCount).render
           }
         }
       }

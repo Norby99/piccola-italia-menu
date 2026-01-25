@@ -22,7 +22,7 @@
 .pizza-cell {
     --elements-per-column: 15;
     break-inside: avoid;
-    height: calc((100vh - var(--whole-content-margin)*2) / var(--elements-per-column));
+    height: calc(100% / var(--elements-per-column));
 
     margin: 0;
     display: flex;
