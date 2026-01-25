@@ -4,11 +4,18 @@ import com.raquo.laminar.api.L.*
 import it.pizzafaenza.menu.pizze.Pizza
 import it.pizzafaenza.menu.utils.stringify
 
-class PizzaCellRenderer(pizza: Pizza) extends CellRenderer:
+class PizzaCellRenderer(pizza: Pizza, rowCount: Int)
+    extends CellRenderer:
   @Override
   def render: Div =
     div(
       cls := "pizza-cell",
+      onMountCallback(ctx =>
+        ctx.thisNode.ref.style.setProperty(
+          "--elements-per-column",
+          rowCount.toString
+        )
+      ),
       div(
         cls := "pizza-header",
         p(
