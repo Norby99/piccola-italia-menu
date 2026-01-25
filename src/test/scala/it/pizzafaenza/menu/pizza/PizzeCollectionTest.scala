@@ -10,7 +10,7 @@ import it.pizzafaenza.menu.pizza.PizzeCollection
 
 class PizzeCollectionTest extends AsyncFlatSpec with Matchers:
 
-  "PizzeCollection" should "load margherita w/o ingredients from a JSON" in:
+  "PizzeCollection" should "load margherita with ingredients from a JSON" in:
     val collection = new PizzeCollection(MockMargheritaReader)
 
     for
