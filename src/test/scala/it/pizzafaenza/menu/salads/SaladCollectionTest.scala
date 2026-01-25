@@ -1,7 +1,7 @@
 package it.pizzafaenza.menu.salads
 
-import it.pizzafaenza.menu.mock.{MockInsalatonaReader, MockIngredientsReader}
-import it.pizzafaenza.menu.menu.SaladCategory
+import it.pizzafaenza.menu.mock.{MockInsalatonaReader, MockVariousReader}
+import it.pizzafaenza.menu.pizza.SaladCollection
 import it.pizzafaenza.menu.ingredients.IngredientCollection
 
 import scala.concurrent.Future
@@ -13,8 +13,8 @@ class SaladCollectionTest extends AsyncFlatSpec with Matchers:
     val collection = new SaladCollection(MockInsalatonaReader)
 
     for
-      ingredients <- IngredientCollection(MockIngredientsReader).getIngredients
-      salads <- collection.getSalad(ingredients)
+      ingredients <- IngredientCollection(MockVariousReader).getIngredients
+      salads <- collection.getSalads(ingredients)
 
       insalata = ingredients.find(_.id == 69).get
       oliveNere = ingredients.find(_.id == 32).get
@@ -27,7 +27,6 @@ class SaladCollectionTest extends AsyncFlatSpec with Matchers:
       salads.length shouldBe 1
       val salad = salads.head
       salad.name shouldBe "Insalatona"
-      salad.category shouldBe SaladCategory.Salad
       salad.ingredients should contain allOf (insalata, oliveNere, pomodoriCalabresi, pomodorini, radicchio, rucola, tonno)
       salad.price shouldBe 9.0
       succeed
