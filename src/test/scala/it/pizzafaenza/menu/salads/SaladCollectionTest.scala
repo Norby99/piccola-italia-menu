@@ -27,6 +27,7 @@ class SaladCollectionTest extends AsyncFlatSpec with Matchers:
       salads.length shouldBe 1
       val salad = salads.head
       salad.name shouldBe "Insalatona"
+      salad.category shouldBe SaladCategory.Vegetarian
       salad.ingredients should contain allOf (insalata, oliveNere, pomodoriCalabresi, pomodorini, radicchio, rucola, tonno)
       salad.price shouldBe 9.0
       succeed
