@@ -23,6 +23,7 @@ object SaladCollection:
       def apply(c: HCursor): Decoder.Result[Salad] =
         for
           name <- c.downField("nomeInsalata").as[String]
+          category <- Right(SaladCategory.Vegetarian)
           ingr <-
             val ingIds: List[Int] =
               c.downField("ingredienti").as[String].map(
@@ -38,4 +39,4 @@ object SaladCollection:
                   )
                 )
           price <- c.downField("prezzo").as[String].map(_.toDouble)
-        yield Salad(name, ingr, price)
+        yield Salad(name, category, ingr, price)

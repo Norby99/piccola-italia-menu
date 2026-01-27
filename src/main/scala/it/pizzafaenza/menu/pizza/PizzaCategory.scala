@@ -1,6 +1,8 @@
 package it.pizzafaenza.menu.pizza
 
-enum PizzaCategory(val title: String):
+import it.pizzafaenza.menu.menu.DishCategory
+
+enum PizzaCategory(val title: String) extends DishCategory:
   case Classiche extends PizzaCategory("Pizze classiche")
   case Bianche extends PizzaCategory("Pizze bianche")
   case Conditissime extends PizzaCategory("Pizze conditissime")
