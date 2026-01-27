@@ -3,33 +3,35 @@ package it.pizzafaenza.menu.menu
 import com.raquo.laminar.api.L.*
 import it.pizzafaenza.menu.UIElements.{CategoryCellRenderer, PizzaCellRenderer}
 import it.pizzafaenza.menu.pizza.{Pizza, PizzaCategory}
+import it.pizzafaenza.menu.salads.{Salad, SaladCategory}
 
 object Menu:
-  def menu1(pizze: Var[List[Pizza]]): Div =
-    val orderMap = Map(
+  def menu1(dishes: Var[List[MenuDish]]): Div =
+    val orderMap: Map[DishCategory, Int] = Map(
       PizzaCategory.Classiche -> 1,
       PizzaCategory.Bianche -> 2,
       PizzaCategory.Conditissime -> 3,
       PizzaCategory.Stese -> 4
     )
 
-    val pizzeList = createMenu(pizze, orderMap)
-    createUI(pizzeList, columnCount = 5, rowCount = 15)
+    val menuList = createMenuList(dishes, orderMap)
+    createUI(menuList, columnCount = 5, rowCount = 15)
 
-  def menu2(pizze: Var[List[Pizza]]): Div =
-    val orderMap = Map(
+  def menu2(dishes: Var[List[MenuDish]]): Div =
+    val orderMap: Map[DishCategory, Int] = Map(
       PizzaCategory.Napoletano -> 1,
-      PizzaCategory.Dolci -> 2
+      PizzaCategory.Dolci -> 2,
+      SaladCategory.Vegetarian -> 3
     )
 
-    val pizzeList = createMenu(pizze, orderMap)
-    createUI(pizzeList, columnCount = 4, rowCount = 14)
+    val menuList = createMenuList(dishes, orderMap)
+    createUI(menuList, columnCount = 4, rowCount = 14)
 
-  private def createMenu(
-      pizze: Var[List[Pizza]],
-      orderMap: Map[PizzaCategory, Int]
-  ): Signal[Seq[(PizzaCategory, List[Pizza])]] =
-    pizze.signal.map { p =>
+  private def createMenuList(
+      dishes: Var[List[MenuDish]],
+      orderMap: Map[DishCategory, Int] = Map.empty
+  ): Signal[Seq[(DishCategory, List[MenuDish])]] =
+    dishes.signal.map { p =>
       p
         .filter(p => orderMap.contains(p.category))
         .groupBy(_.category)
@@ -39,8 +41,15 @@ object Menu:
         }
     }
 
+  private def createSaladList(
+      salads: Var[List[Salad]]
+  ): Signal[Seq[(String, List[Salad])]] =
+    salads.signal.map { s =>
+      Seq(("Insalate", s))
+    }
+
   private def createUI(
-      pizzeList: Signal[Seq[(PizzaCategory, List[Pizza])]],
+      dishList: Signal[Seq[(DishCategory, List[MenuDish])]],
       columnCount: Int = 5,
       rowCount: Int = 15
   ): Div =
@@ -52,10 +61,10 @@ object Menu:
           columnCount.toString
         )
       ),
-      children <-- pizzeList.map { grouped =>
-        grouped.flatMap { case (category, pizze) =>
-          CategoryCellRenderer(category).render +: pizze.map { pizza =>
-            PizzaCellRenderer(pizza, rowCount).render
+      children <-- dishList.map { grouped =>
+        grouped.flatMap { case (category, dish) =>
+          CategoryCellRenderer(category).render +: dish.map { d =>
+            PizzaCellRenderer(d, rowCount).render
           }
         }
       }
