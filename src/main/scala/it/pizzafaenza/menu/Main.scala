@@ -5,6 +5,7 @@ import it.pizzafaenza.menu.pizza.{Pizza, PizzeCollection}
 import it.pizzafaenza.menu.menu.Menu
 import it.pizzafaenza.menu.json.BrowserJsonReader
 import com.raquo.laminar.api.L.*
+import it.pizzafaenza.menu.salads.{Salad, SaladCollection}
 import org.scalajs.dom
 import org.scalajs.dom.window
 
@@ -17,6 +18,11 @@ def ingredientsFuture: Future[List[Ingredient]] =
 def pizzeFuture: Future[List[Pizza]] =
   ingredientsFuture.flatMap { ing =>
     PizzeCollection(BrowserJsonReader).getPizze(ing)
+  }
+
+def saladFuture: Future[List[Salad]] =
+  ingredientsFuture.flatMap { ing =>
+    SaladCollection(BrowserJsonReader).getSalad(ing)
   }
 
 @main def runApp(): Unit =
@@ -32,6 +38,11 @@ def pizzeFuture: Future[List[Pizza]] =
   val pizzeVar = Var(List.empty[Pizza])
   pizzeFuture.foreach { pizze =>
     pizzeVar.set(pizze)
+  }
+
+  val saladsVar = Var(List.empty[Salad])
+  saladFuture.foreach { salads =>
+    saladsVar.set(salads)
   }
 
   val menu1 = Menu.menu1(pizzeVar)
