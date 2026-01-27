@@ -2,7 +2,7 @@ package it.pizzafaenza.menu
 
 import it.pizzafaenza.menu.ingredients.{Ingredient, IngredientCollection}
 import it.pizzafaenza.menu.pizza.{Pizza, PizzeCollection}
-import it.pizzafaenza.menu.menu.Menu
+import it.pizzafaenza.menu.menu.{Menu, MenuDish}
 import it.pizzafaenza.menu.json.BrowserJsonReader
 import com.raquo.laminar.api.L.*
 import it.pizzafaenza.menu.salads.{Salad, SaladCollection}
@@ -35,18 +35,14 @@ def saladFuture: Future[List[Salad]] =
     }
   )
 
-  val pizzeVar = Var(List.empty[Pizza])
-  pizzeFuture.foreach { pizze =>
-    pizzeVar.set(pizze)
-  }
+  val dishesVar = Var(List.empty[MenuDish])
+  for
+    pizze <- pizzeFuture
+    insalate <- saladFuture
+  yield dishesVar.set(pizze ++ insalate)
 
-  val saladsVar = Var(List.empty[Salad])
-  saladFuture.foreach { salads =>
-    saladsVar.set(salads)
-  }
-
-  val menu1 = Menu.menu1(pizzeVar)
-  val menu2 = Menu.menu2(pizzeVar)
+  val menu1 = Menu.menu1(dishesVar)
+  val menu2 = Menu.menu2(dishesVar)
 
   val app = menu2
 
