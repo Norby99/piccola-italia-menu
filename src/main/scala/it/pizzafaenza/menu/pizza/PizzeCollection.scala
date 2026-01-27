@@ -25,7 +25,7 @@ object PizzeCollection:
           name <- c.downField("nomePizza").as[String]
           category <-
             c.downField("nome_tipo").as[String].flatMap { typeStr =>
-              PizzaCategory.values.find(_.description == typeStr)
+              PizzaCategory.values.find(_.title == typeStr)
                 .toRight(DecodingFailure(
                   s"Pizza category not found: $typeStr",
                   c.history
