@@ -3,12 +3,21 @@ package it.pizzafaenza.menu.salads
 import it.pizzafaenza.menu.json.JsonReader
 import io.circe.*
 import it.pizzafaenza.menu.ingredients.Ingredient
+import it.pizzafaenza.menu.menu.MenuDishCollection
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class SaladCollection(jsonReader: JsonReader)(implicit ec: ExecutionContext):
-  private val DBPath = "data/insalate.json"
+class SaladCollection(jsonReader: JsonReader)(implicit ec: ExecutionContext)
+    extends MenuDishCollection[Salad](
+      jsonReader,
+      "data/insalate.json",
+      SaladCollection.saladDecoder
+    ):
 
+  def getSalad(ingredients: List[Ingredient]): Future[List[Salad]] =
+    getDish(ingredients)
+
+object SaladCollection:
   private def saladDecoder(ingredients: List[Ingredient]): Decoder[Salad] =
     new Decoder[Salad]:
       def apply(c: HCursor): Decoder.Result[Salad] =
@@ -30,29 +39,3 @@ class SaladCollection(jsonReader: JsonReader)(implicit ec: ExecutionContext):
                 )
           price <- c.downField("prezzo").as[String].map(_.toDouble)
         yield Salad(name, ingr, price)
-
-  def getSalad(ingredients: List[Ingredient]): Future[List[Salad]] =
-    jsonReader.read(DBPath).map { content =>
-      given Decoder[Salad] = saladDecoder(ingredients)
-
-      println("Decoding...")
-      io.circe.parser.parse(content.noSpaces) match
-        case Right(json) =>
-          val res = json.asArray match
-            case Some(saladArray) =>
-              saladArray.flatMap { saladJson =>
-                saladJson.as[Salad] match
-                  case Right(salad) =>
-                    println("---:" + salad)
-                    Some(salad)
-                  case Left(error) =>
-                    println(s"Skipping salad: ${error.getMessage}")
-                    None
-              }.toList
-            case None =>
-              throw new Exception("JSON is not an array")
-          println("Decoded salad: " + res.size)
-          res
-        case Left(error) =>
-          throw new Exception(s"Failed to parse JSON: $error")
-    }
