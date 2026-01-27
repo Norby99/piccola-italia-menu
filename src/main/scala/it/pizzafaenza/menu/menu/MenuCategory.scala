@@ -1,6 +1,6 @@
 package it.pizzafaenza.menu.menu
 
-trait MenuCategory:
+sealed trait MenuCategory:
   def title: String
 
 enum PizzaCategory(val title: String) extends MenuCategory:
