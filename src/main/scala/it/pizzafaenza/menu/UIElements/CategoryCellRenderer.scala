@@ -1,9 +1,9 @@
 package it.pizzafaenza.menu.UIElements
 
 import com.raquo.laminar.api.L.*
-import it.pizzafaenza.menu.menu.DishCategory
+import it.pizzafaenza.menu.menu.MenuCategory
 
-class CategoryCellRenderer(category: DishCategory) extends CellRenderer:
+class CategoryCellRenderer(category: MenuCategory) extends CellRenderer:
   @Override
   def render: Div =
     div(

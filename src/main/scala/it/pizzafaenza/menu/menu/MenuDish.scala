@@ -4,6 +4,6 @@ import it.pizzafaenza.menu.ingredients.Ingredient
 
 trait MenuDish:
   def name: String
-  def category: DishCategory
+  def category: MenuCategory
   def ingredients: List[Ingredient]
   def price: Double

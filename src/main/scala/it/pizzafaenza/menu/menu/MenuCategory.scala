@@ -1,6 +1,6 @@
 package it.pizzafaenza.menu.menu
 
-sealed trait MenuCategory:
+trait MenuCategory:
   def title: String
 
 enum PizzaCategory(val title: String) extends MenuCategory:
@@ -12,7 +12,4 @@ enum PizzaCategory(val title: String) extends MenuCategory:
   case Dolci extends PizzaCategory("Pizze dolci")
 
 enum SaladCategory(val title: String) extends MenuCategory:
-  case Salad extends SaladCategory("Insalate +spianata")
-
-enum ExtraToppingCategory(val title: String) extends MenuCategory:
-  case ExtraTopping extends ExtraToppingCategory("Aggiunte")
+  case Salad extends SaladCategory("Insalate")
