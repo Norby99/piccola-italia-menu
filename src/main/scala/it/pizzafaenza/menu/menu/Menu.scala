@@ -41,13 +41,6 @@ object Menu:
         }
     }
 
-  private def createSaladList(
-      salads: Var[List[Salad]]
-  ): Signal[Seq[(String, List[Salad])]] =
-    salads.signal.map { s =>
-      Seq(("Insalate", s))
-    }
-
   private def createUI(
       dishList: Signal[Seq[(DishCategory, List[MenuDish])]],
       columnCount: Int = 5,
