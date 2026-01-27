@@ -48,6 +48,62 @@ object MockVariousReader extends JsonReader:
         |        "allergeni": "1",
         |        "id": "1",
         |        "tipo": "Null"
+        |    },
+        |    {
+        |        "id_ingrediente": "69",
+        |        "nome_italiano": "insalata",
+        |        "nome_inglese": "salad",
+        |        "allergeni": "1",
+        |        "id": "1",
+        |        "tipo": "Null"
+        |    },
+        |    {
+        |        "id_ingrediente": "32",
+        |        "nome_italiano": "olive nere",
+        |        "nome_inglese": "black olive",
+        |        "allergeni": "1",
+        |        "id": "1",
+        |        "tipo": "Null"
+        |    },
+        |    {
+        |        "id_ingrediente": "56",
+        |        "nome_italiano": "pomodori calabresi",
+        |        "nome_inglese": "dried tomatoes",
+        |        "allergeni": "1",
+        |        "id": "1",
+        |        "tipo": "Null"
+        |    },
+        |    {
+        |        "id_ingrediente": "15",
+        |        "nome_italiano": "pomodorini",
+        |        "nome_inglese": "cherry tomatoes",
+        |        "allergeni": "1",
+        |        "id": "1",
+        |        "tipo": "Null"
+        |    },
+        |    {
+        |        "id_ingrediente": "14",
+        |        "nome_italiano": "radicchio",
+        |        "nome_inglese": "radicchio",
+        |        "allergeni": "1",
+        |        "id": "1",
+        |        "tipo": "Null"
+        |    },
+        |    {
+        |        "id_ingrediente": "30",
+        |        "nome_italiano": "rucola",
+        |        "nome_inglese": "bed of arugula",
+        |        "allergeni": "1",
+        |        "id": "1",
+        |        "tipo": "Null"
+        |    },
+        |    {
+        |        "id_ingrediente": "39",
+        |        "nome_italiano": "tonno",
+        |        "nome_inglese": "tuna",
+        |        "allergeni": "3",
+        |        "id": "3",
+        |        "tipo": "Pesce"
         |    }
         |]
         |""".stripMargin
