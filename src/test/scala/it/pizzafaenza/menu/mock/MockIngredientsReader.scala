@@ -4,7 +4,7 @@ import io.circe.Json
 import it.pizzafaenza.menu.json.JsonReader
 import scala.concurrent.Future
 
-object MockVariousReader extends JsonReader:
+object MockIngredientsReader extends JsonReader:
   override def read(path: String): Future[Json] =
     val mockJsonString =
       """

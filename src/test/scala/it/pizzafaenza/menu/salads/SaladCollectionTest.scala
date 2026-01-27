@@ -1,6 +1,6 @@
 package it.pizzafaenza.menu.salads
 
-import it.pizzafaenza.menu.mock.{MockInsalatonaReader, MockVariousReader}
+import it.pizzafaenza.menu.mock.{MockInsalatonaReader, MockIngredientsReader}
 import it.pizzafaenza.menu.salads.SaladCollection
 import it.pizzafaenza.menu.ingredients.IngredientCollection
 
@@ -13,7 +13,7 @@ class SaladCollectionTest extends AsyncFlatSpec with Matchers:
     val collection = new SaladCollection(MockInsalatonaReader)
 
     for
-      ingredients <- IngredientCollection(MockVariousReader).getIngredients
+      ingredients <- IngredientCollection(MockIngredientsReader).getIngredients
       salads <- collection.getSalad(ingredients)
 
       insalata = ingredients.find(_.id == 69).get
