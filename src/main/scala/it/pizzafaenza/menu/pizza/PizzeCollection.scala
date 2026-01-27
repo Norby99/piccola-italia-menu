@@ -3,7 +3,7 @@ package it.pizzafaenza.menu.pizza
 import it.pizzafaenza.menu.json.JsonReader
 import io.circe.*
 import it.pizzafaenza.menu.ingredients.Ingredient
-import it.pizzafaenza.menu.menu.MenuDishCollection
+import it.pizzafaenza.menu.menu.{MenuDishCollection, PizzaCategory}
 
 import scala.concurrent.{ExecutionContext, Future}
 

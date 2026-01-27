@@ -2,12 +2,12 @@ package it.pizzafaenza.menu.menu
 
 import com.raquo.laminar.api.L.*
 import it.pizzafaenza.menu.UIElements.{CategoryCellRenderer, PizzaCellRenderer}
-import it.pizzafaenza.menu.pizza.{Pizza, PizzaCategory}
-import it.pizzafaenza.menu.salads.{Salad, SaladCategory}
+import it.pizzafaenza.menu.pizza.Pizza
+import it.pizzafaenza.menu.salads.Salad
 
 object Menu:
   def menu1(dishes: Var[List[MenuDish]]): Div =
-    val orderMap: Map[DishCategory, Int] = Map(
+    val orderMap: Map[MenuCategory, Int] = Map(
       PizzaCategory.Classiche -> 1,
       PizzaCategory.Bianche -> 2,
       PizzaCategory.Conditissime -> 3,
@@ -18,10 +18,10 @@ object Menu:
     createUI(menuList, columnCount = 5, rowCount = 15)
 
   def menu2(dishes: Var[List[MenuDish]]): Div =
-    val orderMap: Map[DishCategory, Int] = Map(
+    val orderMap: Map[MenuCategory, Int] = Map(
       PizzaCategory.Napoletano -> 1,
       PizzaCategory.Dolci -> 2,
-      SaladCategory.Vegetarian -> 3
+      SaladCategory.Salad -> 3
     )
 
     val menuList = createMenuList(dishes, orderMap)
@@ -29,8 +29,8 @@ object Menu:
 
   private def createMenuList(
       dishes: Var[List[MenuDish]],
-      orderMap: Map[DishCategory, Int] = Map.empty
-  ): Signal[Seq[(DishCategory, List[MenuDish])]] =
+      orderMap: Map[MenuCategory, Int] = Map.empty
+  ): Signal[Seq[(MenuCategory, List[MenuDish])]] =
     dishes.signal.map { p =>
       p
         .filter(p => orderMap.contains(p.category))
@@ -42,7 +42,7 @@ object Menu:
     }
 
   private def createUI(
-      dishList: Signal[Seq[(DishCategory, List[MenuDish])]],
+      dishList: Signal[Seq[(MenuCategory, List[MenuDish])]],
       columnCount: Int = 5,
       rowCount: Int = 15
   ): Div =

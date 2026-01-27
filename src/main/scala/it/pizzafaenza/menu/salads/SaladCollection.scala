@@ -3,7 +3,7 @@ package it.pizzafaenza.menu.salads
 import it.pizzafaenza.menu.json.JsonReader
 import io.circe.*
 import it.pizzafaenza.menu.ingredients.Ingredient
-import it.pizzafaenza.menu.menu.MenuDishCollection
+import it.pizzafaenza.menu.menu.{MenuDishCollection, SaladCategory}
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -23,7 +23,7 @@ object SaladCollection:
       def apply(c: HCursor): Decoder.Result[Salad] =
         for
           name <- c.downField("nomeInsalata").as[String]
-          category <- Right(SaladCategory.Vegetarian)
+          category <- Right(SaladCategory.Salad)
           ingr <-
             val ingIds: List[Int] =
               c.downField("ingredienti").as[String].map(
