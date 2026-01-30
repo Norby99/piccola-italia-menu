@@ -1,6 +1,5 @@
 package it.pizzafaenza.menu.extraToppings
 
-import it.pizzafaenza.menu.menu.ExtraToppingCategory
 import it.pizzafaenza.menu.mock.MockExtraToppingsReader
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should.Matchers
@@ -12,11 +11,10 @@ class ExtraToppingsCollectionTest extends AsyncFlatSpec with Matchers:
     val collection = new ExtraToppingsCollection(MockExtraToppingsReader)
 
     for
-      extraToppings <- collection.getExtraTopping
+      extraToppings <- collection.getExtraToppings
       bufala = extraToppings.find(_.id == 2).get
     yield
       bufala.id shouldBe 2
-      bufala.name.italian shouldBe "Mozzarella di Bufala"
-      bufala.name.english shouldBe "Buffalo mozzarella"
+      bufala.name shouldBe "Mozzarella di Bufala"
       bufala.price shouldBe 2.5
       succeed
