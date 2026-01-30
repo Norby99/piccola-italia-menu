@@ -104,6 +104,14 @@ object MockIngredientsReader extends JsonReader:
         |        "allergeni": "3",
         |        "id": "3",
         |        "tipo": "Pesce"
+        |    },
+        |    {
+        |        "id_ingrediente": "50",
+        |        "nome_italiano": "gamberetti",
+        |        "nome_inglese": "shrimps",
+        |        "allergeni": "3",
+        |        "id": "3",
+        |        "tipo": "Pesce"
         |    }
         |]
         |""".stripMargin
