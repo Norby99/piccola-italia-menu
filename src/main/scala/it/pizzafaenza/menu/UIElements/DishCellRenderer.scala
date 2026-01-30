@@ -4,7 +4,7 @@ import com.raquo.laminar.api.L.*
 import it.pizzafaenza.menu.menu.MenuDish
 import it.pizzafaenza.menu.utils.stringify
 
-class PizzaCellRenderer(dish: MenuDish, rowCount: Int)
+class DishCellRenderer(dish: MenuDish, rowCount: Int)
     extends CellRenderer:
   @Override
   def render: Div =
