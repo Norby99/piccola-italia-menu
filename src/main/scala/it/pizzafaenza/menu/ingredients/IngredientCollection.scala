@@ -2,6 +2,8 @@ package it.pizzafaenza.menu.ingredients
 
 import it.pizzafaenza.menu.json.JsonReader
 import io.circe.*
+import it.pizzafaenza.menu.utils.Name
+
 import scala.concurrent.{ExecutionContext, Future}
 
 class IngredientCollection(jsonReader: JsonReader)(implicit

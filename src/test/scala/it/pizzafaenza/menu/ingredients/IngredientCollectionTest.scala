@@ -1,6 +1,5 @@
 package it.pizzafaenza.menu.ingredients
 
-import it.pizzafaenza.menu.ingredients.{Ingredient, IngredientCollection}
 import it.pizzafaenza.menu.mock.MockIngredientsReader
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should.Matchers

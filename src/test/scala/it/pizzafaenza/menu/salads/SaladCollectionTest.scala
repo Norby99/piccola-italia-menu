@@ -1,7 +1,6 @@
 package it.pizzafaenza.menu.salads
 
 import it.pizzafaenza.menu.mock.{MockInsalatonaReader, MockIngredientsReader}
-import it.pizzafaenza.menu.salads.SaladCollection
 import it.pizzafaenza.menu.menu.SaladCategory
 import it.pizzafaenza.menu.ingredients.IngredientCollection
 
