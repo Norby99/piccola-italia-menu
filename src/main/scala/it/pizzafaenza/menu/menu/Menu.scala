@@ -1,7 +1,7 @@
 package it.pizzafaenza.menu.menu
 
 import com.raquo.laminar.api.L.*
-import it.pizzafaenza.menu.UIElements.{CategoryCellRenderer, PizzaCellRenderer}
+import it.pizzafaenza.menu.UIElements.{CategoryCellRenderer, DishCellRenderer}
 import it.pizzafaenza.menu.pizza.Pizza
 import it.pizzafaenza.menu.salads.Salad
 
