@@ -6,7 +6,6 @@ import scala.concurrent.Future
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should.Matchers
 import it.pizzafaenza.menu.mock.{MockMargheritaReader, MockIngredientsReader}
-import it.pizzafaenza.menu.pizza.PizzeCollection
 
 class PizzeCollectionTest extends AsyncFlatSpec with Matchers:
 
