@@ -11,10 +11,11 @@ class ExtraToppingsCollectionTest extends AsyncFlatSpec with Matchers:
     val collection = new ExtraToppingsCollection(MockExtraToppingsReader)
 
     for
-      extraToppings <- collection.getExtraToppings
+      extraToppings <- collection.getExtraTopping
       bufala = extraToppings.find(_.id == 2).get
     yield
       bufala.id shouldBe 2
-      bufala.name shouldBe "Mozzarella di Bufala"
+      bufala.name.italian shouldBe "Mozzarella di Bufala"
+      bufala.name.english shouldBe "Buffalo mozzarella"
       bufala.price shouldBe 2.5
       succeed
