@@ -1,8 +1,10 @@
 package it.pizzafaenza.menu.extraToppings
 
 import io.circe.{Decoder, HCursor}
+import it.pizzafaenza.menu.ingredients.{Name}
 import it.pizzafaenza.menu.json.JsonReader
-import it.pizzafaenza.menu.utils.Name
+import it.pizzafaenza.menu.menu.MenuDishCollection
+import it.pizzafaenza.menu.pizza.{Pizza, PizzeCollection}
 
 import scala.concurrent.{ExecutionContext, Future}
 
