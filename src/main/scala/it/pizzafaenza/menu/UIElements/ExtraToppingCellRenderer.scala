@@ -2,24 +2,25 @@ package it.pizzafaenza.menu.UIElements
 
 import com.raquo.laminar.api.L.*
 import it.pizzafaenza.menu.extraToppings.ExtraTopping
+import it.pizzafaenza.menu.menu.MenuDish
 import it.pizzafaenza.menu.utils.stringify
 
 class ExtraToppingCellRenderer(extTopping: ExtraTopping) extends CellRenderer:
-
-  /** Renders the extra topping cell with its name and price.
-    * @param heightProportion
-    *   it is not actually used in this renderer.
-    * @return
-    */
   @Override
-  def render(heightProportion: Int = 0): Div =
+  def render(rowCount: Int): Div =
     div(
-      cls := "extra-topping-cell",
+      cls := "pizza-cell",
+      onMountCallback(ctx =>
+        ctx.thisNode.ref.style.setProperty(
+          "--elements-per-column",
+          rowCount.toString
+        )
+      ),
       div(
         cls := "pizza-header",
         p(
-          cls := "extra-topping-name",
-          s"${extTopping.name.italian}"
+          cls := "pizza-name",
+          s"${extTopping.name}"
         ),
         p(
           cls := "pizza-price",
