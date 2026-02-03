@@ -18,9 +18,8 @@ class ExtraToppingsCollection(jsonReader: JsonReader)(implicit
         id <- c.downField("id_aggiunta").as[Int]
         nameItalian <- c.downField("nome_aggiunta").as[String]
         nameEnglish <- c.downField("nome_inglese").as[String]
-        category <- Right(ExtraToppingCategory.ExtraTopping)
         price <- c.downField("prezzo").as[String].map(_.toDouble)
-      yield ExtraTopping(id, Name(nameItalian, nameEnglish), category, price)
+      yield ExtraTopping(id, Name(nameItalian, nameEnglish), price)
 
   def getExtraTopping: Future[List[ExtraTopping]] =
     jsonReader.read(DBPath).map { content =>

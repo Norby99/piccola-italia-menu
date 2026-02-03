@@ -2,7 +2,7 @@ package it.pizzafaenza.menu
 
 import it.pizzafaenza.menu.ingredients.{Ingredient, IngredientCollection}
 import it.pizzafaenza.menu.pizza.{Pizza, PizzeCollection}
-import it.pizzafaenza.menu.menu.{Menu, MenuDish, MenuItem}
+import it.pizzafaenza.menu.menu.{Menu, MenuDish}
 import it.pizzafaenza.menu.json.BrowserJsonReader
 import com.raquo.laminar.api.L.*
 import it.pizzafaenza.menu.extraToppings.{ExtraTopping, ExtraToppingsCollection}
