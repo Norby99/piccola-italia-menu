@@ -5,7 +5,7 @@ import it.pizzafaenza.menu.menu.MenuCategory
 
 class CategoryCellRenderer(category: MenuCategory) extends CellRenderer:
   @Override
-  def render: Div =
+  def render(rowCount: Int): Div =
     div(
       cls := "pizza-cell category-cell",
       p(
