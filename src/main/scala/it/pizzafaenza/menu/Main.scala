@@ -45,8 +45,13 @@ def extraToppingFuture: Future[List[ExtraTopping]] =
     insalate <- saladFuture
   yield dishesVar.set(pizze ++ insalate)
 
+  val extraToppingCollection = Var(List.empty[ExtraTopping])
+  for
+    extraToppings <- extraToppingFuture
+  yield extraToppingCollection.set(extraToppings)
+
   val menu1 = Menu.menu1(dishesVar)
-  val menu2 = Menu.menu2(dishesVar)
+  val menu2 = Menu.menu2(dishesVar, extraToppingCollection)
 
   val app = menu2
 
