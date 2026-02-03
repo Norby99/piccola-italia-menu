@@ -1,11 +1,10 @@
 package it.pizzafaenza.menu.extraToppings
 
-import it.pizzafaenza.menu.menu.{ExtraToppingCategory, MenuItem}
+import it.pizzafaenza.menu.menu.ExtraToppingCategory
 import it.pizzafaenza.menu.utils.Name
 
 case class ExtraTopping(
     id: Int,
     name: Name,
-    category: ExtraToppingCategory,
     price: Double
-) extends MenuItem
+)
