@@ -2,7 +2,6 @@ package it.pizzafaenza.menu.extraToppings
 
 import io.circe.{Decoder, HCursor}
 import it.pizzafaenza.menu.json.JsonReader
-import it.pizzafaenza.menu.menu.ExtraToppingCategory
 import it.pizzafaenza.menu.utils.Name
 
 import scala.concurrent.{ExecutionContext, Future}

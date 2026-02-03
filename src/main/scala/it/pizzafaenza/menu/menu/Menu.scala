@@ -41,7 +41,7 @@ object Menu:
         }
     }
 
-  private def createUI(
+  def createUI(
       dishList: Signal[Seq[(MenuCategory, List[MenuDish])]],
       columnCount: Int = 5,
       rowCount: Int = 15
