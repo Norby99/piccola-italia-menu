@@ -7,13 +7,13 @@ import it.pizzafaenza.menu.utils.stringify
 class DishCellRenderer(dish: MenuDish)
     extends CellRenderer:
   @Override
-  def render(rowCount: Int): Div =
+  def render(heightProportion: Int): Div =
     div(
       cls := "pizza-cell",
       onMountCallback(ctx =>
         ctx.thisNode.ref.style.setProperty(
           "--elements-per-column",
-          rowCount.toString
+          heightProportion.toString
         )
       ),
       div(
