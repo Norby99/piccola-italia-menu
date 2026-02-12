@@ -1,0 +1,19 @@
+.extra-topping-cell {
+    break-inside: avoid;
+    height: calc(1.5 * var(--extra_topping_name-font-size));
+
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    /*background-color: blue; */    /* Debugging purpose */
+}
+
+.extra-topping-name {
+    margin: 0;
+    font-weight: bold;
+    text-align: left;
+    color: var(--generic-text-color);
+    font-size: var(--extra_topping_name-font-size);
+}
