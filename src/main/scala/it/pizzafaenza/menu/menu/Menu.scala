@@ -5,7 +5,8 @@ import it.pizzafaenza.menu.UIElements.{
   CategoryCellRenderer,
   CellRenderer,
   DishCellRenderer,
-  ExtraToppingCellRenderer
+  ExtraToppingCellRenderer,
+  NewColumnCellRenderer
 }
 import it.pizzafaenza.menu.extraToppings.ExtraTopping
 
@@ -34,7 +35,8 @@ object Menu:
     val pizzaList = createPizzaList(dishes, orderMap)
     val extraToppingList = createExtraToppingList(extToppings)
     val combinedList = Signal.combine(pizzaList, extraToppingList).map {
-      case (pizzas, toppings) => pizzas ++ toppings
+      case (pizzas, toppings) =>
+        pizzas ++ Seq(NewColumnCellRenderer()) ++ toppings
     }
     createUI(combinedList, columnCount = 4, rowCount = 14)
 
@@ -67,7 +69,7 @@ object Menu:
     }
 
   private def createUI(
-      dishList: Signal[Seq[CellRenderer]],
+      cellList: Signal[Seq[CellRenderer]],
       columnCount: Int = 5,
       rowCount: Int = 15
   ): Div =
@@ -79,5 +81,5 @@ object Menu:
           columnCount.toString
         )
       ),
-      children <-- dishList.map(_.map(_.render(rowCount)))
+      children <-- cellList.map(_.map(_.render(rowCount)))
     )

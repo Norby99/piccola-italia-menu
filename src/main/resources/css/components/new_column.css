@@ -1,0 +1,4 @@
+.new-column-cell {
+    display: flex;
+    break-after: column;
+}
