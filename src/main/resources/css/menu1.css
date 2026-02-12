@@ -2,4 +2,5 @@
 @import url('base/layout.css');
 @import url('components/category.css');
 @import url('components/pizza.css');
+@import url('components/extra_topping.css');
 @import url('utilities/borders.css');
