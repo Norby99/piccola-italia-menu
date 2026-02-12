@@ -1,29 +1,5 @@
-.square-cell {
-    width: 100%;
-    padding-bottom: 100%;
-    position: relative;
-    height: 0;
+.logo-cell {
+    height: 100vw;
 }
 
-.horizontal-images {
-    --elements-per-column: 1;
-
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-    overflow: hidden;
-}
-
-.horizontal-images .square-cell {
-    height: 100%;
-    width: auto;
-    padding-bottom: 0;
-    flex-shrink: 0;
-}
-
-.horizontal-images .square-cell img {
-    height: 100%;
-    width: auto;
-    object-fit: contain;
-}
+.social-cell {}
