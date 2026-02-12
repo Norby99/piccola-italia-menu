@@ -5,21 +5,21 @@ import it.pizzafaenza.menu.extraToppings.ExtraTopping
 import it.pizzafaenza.menu.utils.stringify
 
 class ExtraToppingCellRenderer(extTopping: ExtraTopping) extends CellRenderer:
+
+  /** Renders the extra topping cell with its name and price.
+    * @param heightProportion
+    *   it is not actually used in this renderer.
+    * @return
+    */
   @Override
-  def render(heightProportion: Int): Div =
+  def render(heightProportion: Int = 0): Div =
     div(
-      cls := "pizza-cell",
-      onMountCallback(ctx =>
-        ctx.thisNode.ref.style.setProperty(
-          "--elements-per-column",
-          heightProportion.toString
-        )
-      ),
+      cls := "extra-topping-cell",
       div(
         cls := "pizza-header",
         p(
-          cls := "pizza-name",
-          s"${extTopping.name}"
+          cls := "extra-topping-name",
+          s"${extTopping.name.italian}"
         ),
         p(
           cls := "pizza-price",
