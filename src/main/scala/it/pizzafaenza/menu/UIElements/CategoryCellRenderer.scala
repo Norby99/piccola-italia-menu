@@ -8,12 +8,7 @@ class CategoryCellRenderer(category: MenuCategory) extends CellRenderer:
   def render(heightProportion: Int): Div =
     div(
       cls := "pizza-cell category-cell",
-      onMountCallback(ctx =>
-        ctx.thisNode.ref.style.setProperty(
-          "--elements-per-column",
-          heightProportion.toString
-        )
-      ),
+      styleAttr := s"--elements-per-column: $heightProportion",
       p(
         cls := "category-name upper-bottom-border",
         category.title
