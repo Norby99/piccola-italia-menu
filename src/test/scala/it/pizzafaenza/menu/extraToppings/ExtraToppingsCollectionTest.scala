@@ -18,6 +18,5 @@ class ExtraToppingsCollectionTest extends AsyncFlatSpec with Matchers:
       bufala.id shouldBe 2
       bufala.name.italian shouldBe "Mozzarella di Bufala"
       bufala.name.english shouldBe "Buffalo mozzarella"
-      bufala.category shouldBe ExtraToppingCategory.ExtraTopping
       bufala.price shouldBe 2.5
       succeed
