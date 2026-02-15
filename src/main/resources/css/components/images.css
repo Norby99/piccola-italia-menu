@@ -12,6 +12,7 @@
     flex-direction: row;
     gap: 10px;
     align-items: center;
+    justify-content: space-evenly;
     height: calc(100vh / var(--elements-per-column));
     overflow: hidden;
 }
