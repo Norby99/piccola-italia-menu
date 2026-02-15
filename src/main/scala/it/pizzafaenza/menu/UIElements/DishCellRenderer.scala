@@ -10,12 +10,7 @@ class DishCellRenderer(dish: MenuDish)
   def render(heightProportion: Int): Div =
     div(
       cls := "pizza-cell",
-      onMountCallback(ctx =>
-        ctx.thisNode.ref.style.setProperty(
-          "--elements-per-column",
-          heightProportion.toString
-        )
-      ),
+      styleAttr := s"--elements-per-column: $heightProportion",
       div(
         cls := "pizza-header",
         p(
