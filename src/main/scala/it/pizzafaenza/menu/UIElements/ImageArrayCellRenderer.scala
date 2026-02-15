@@ -9,5 +9,5 @@ class ImageArrayCellRenderer(images: Seq[ImageCellRenderer])
     div(
       cls := "pizza-cell horizontal-images",
       styleAttr := s"--elements-per-column: $heightProportion",
-      images.map(_.render(heightProportion))
+      images.map(_.render())
     )
