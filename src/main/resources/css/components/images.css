@@ -1,8 +1,30 @@
-.logo-cell {
+.square-cell {
     width: 100%;
     padding-bottom: 100%;
     position: relative;
     height: 0;
 }
 
-.social-cell {}
+.horizontal-images {
+    --elements-per-column: 1;
+
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    height: calc(100vh / var(--elements-per-column));
+    overflow: hidden;
+}
+
+.horizontal-images .square-cell {
+    height: 100%;
+    width: auto;
+    padding-bottom: 0;
+    flex-shrink: 0;
+}
+
+.horizontal-images .square-cell img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+}
