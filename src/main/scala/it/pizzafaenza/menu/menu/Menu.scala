@@ -80,9 +80,9 @@ object Menu:
 
   private def createSocialLogos: CellRenderer =
     ImageArrayCellRenderer(Seq(
-      ImageCellRenderer("image/socials/Facebook-logo.png", inGrid = false),
-      ImageCellRenderer("image/socials/Instagram-logo.png", inGrid = false),
-      ImageCellRenderer("image/socials/TripAdvisor-Logo.png", inGrid = false)
+      ImageCellRenderer("image/socials/Facebook-logo.png"),
+      ImageCellRenderer("image/socials/Instagram-logo.png"),
+      ImageCellRenderer("image/socials/TripAdvisor-Logo.png")
     ))
 
   private def createUI(
