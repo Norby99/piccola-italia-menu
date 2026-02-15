@@ -6,6 +6,7 @@ import it.pizzafaenza.menu.UIElements.{
   CellRenderer,
   DishCellRenderer,
   ExtraToppingCellRenderer,
+  ImageArrayCellRenderer,
   ImageCellRenderer,
   NewColumnCellRenderer
 }
@@ -42,6 +43,7 @@ object Menu:
           toppings ++
           Seq(NewColumnCellRenderer()) ++
           Seq(createLogo) ++
+          Seq(createSocialLogos)
     }
     createUI(combinedList, columnCount = 4, rowCount = 14)
 
@@ -75,6 +77,13 @@ object Menu:
 
   private def createLogo: CellRenderer =
     ImageCellRenderer("image/Piccola-Italia-logo.png")
+
+  private def createSocialLogos: CellRenderer =
+    ImageArrayCellRenderer(Seq(
+      ImageCellRenderer("image/socials/Facebook-logo.png", inGrid = false),
+      ImageCellRenderer("image/socials/Instagram-logo.png", inGrid = false),
+      ImageCellRenderer("image/socials/TripAdvisor-Logo.png", inGrid = false)
+    ))
 
   private def createUI(
       cellList: Signal[Seq[CellRenderer]],
