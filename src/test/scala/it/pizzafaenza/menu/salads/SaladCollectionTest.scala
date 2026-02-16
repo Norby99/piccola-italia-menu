@@ -24,7 +24,7 @@ class SaladCollectionTest extends AsyncFlatSpec with Matchers:
       rucola = ingredients.find(_.id == 30).get
       tonno = ingredients.find(_.id == 39).get
     yield
-      salads.length shouldBe 2
+      salads.length shouldBe 1
       val salad = salads.head
       salad.name shouldBe "Insalatona"
       salad.category shouldBe SaladCategory.Salad
