@@ -6,10 +6,6 @@ target/
 ### IntelliJ IDEA ###
 .idea/*
 
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
 *.iws
 *.iml
 *.ipr
@@ -48,6 +44,11 @@ build/
 
 ### Scala ###
 .bsp/
+.bsp/
+.bloop/
+.metals/
+metals.sbt
+project/metals.sbt
 
 ### Data ###
 src/main/resources/data/
