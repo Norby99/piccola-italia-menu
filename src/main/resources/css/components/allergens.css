@@ -19,7 +19,7 @@
 }
 
 .allergen-image {
-    height: var(--allergen_name-font-size);
+    height: var(--allergen_image-size);
     width: auto;
     object-fit: contain;
 }
