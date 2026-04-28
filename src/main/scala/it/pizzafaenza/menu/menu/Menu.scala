@@ -2,6 +2,7 @@ package it.pizzafaenza.menu.menu
 
 import com.raquo.laminar.api.L.*
 import it.pizzafaenza.menu.UIElements.{
+  AllergenGridCellRenderer,
   CategoryCellRenderer,
   CellRenderer,
   DishCellRenderer,
@@ -10,6 +11,7 @@ import it.pizzafaenza.menu.UIElements.{
   ImageCellRenderer,
   NewColumnCellRenderer
 }
+import it.pizzafaenza.menu.allergens.Allergen
 import it.pizzafaenza.menu.extraToppings.ExtraTopping
 
 object Menu:
@@ -36,16 +38,18 @@ object Menu:
 
     val pizzaList = createPizzaList(dishes, orderMap)
     val extraToppingList = createExtraToppingList(extToppings)
-    val combinedList = Signal.combine(pizzaList, extraToppingList).map {
-      case (pizzas, toppings) =>
-        pizzas ++
-          Seq(NewColumnCellRenderer()) ++
-          toppings ++
-          Seq(NewColumnCellRenderer()) ++
-          Seq(createLogo) ++
-          Seq(createSocialLogos) ++
-          Seq(createLegend)
-    }
+    val legendGrid = createLegend
+    val combinedList =
+      Signal.combine(pizzaList, extraToppingList, legendGrid).map {
+        case (pizzas, toppings, legend) =>
+          pizzas ++
+            Seq(NewColumnCellRenderer()) ++
+            toppings ++
+            Seq(NewColumnCellRenderer()) ++
+            Seq(createLogo) ++
+            Seq(createSocialLogos) ++
+            legend
+      }
     createUI(combinedList, columnCount = 4, rowCount = 14)
 
   private def createPizzaList(
@@ -86,8 +90,21 @@ object Menu:
       ImageCellRenderer("image/socials/TripAdvisor-Logo.png")
     ))
 
-  private def createLegend: CellRenderer =
-    CategoryCellRenderer(LegendCategory.Legend)
+  private def createLegend: Signal[Seq[CellRenderer]] =
+    val allergenList = List(
+      Allergen("Glutine", "image/allergens/glutine.png"),
+      Allergen("Latticini", "image/allergens/latticini.png"),
+      Allergen("Glutine", "image/allergens/glutine.png"),
+      Allergen("Latticini", "image/allergens/latticini.png"),
+      Allergen("Glutine", "image/allergens/glutine.png"),
+      Allergen("Latticini", "image/allergens/latticini.png"),
+      Allergen("Glutine", "image/allergens/glutine.png"),
+      Allergen("Latticini", "image/allergens/latticini.png")
+    )
+    Val(Seq(
+      CategoryCellRenderer(LegendCategory.Legend),
+      AllergenGridCellRenderer(allergenList)
+    )).signal
 
   private def createUI(
       cellList: Signal[Seq[CellRenderer]],
