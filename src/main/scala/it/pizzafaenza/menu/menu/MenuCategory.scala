@@ -16,3 +16,6 @@ enum SaladCategory(val title: String) extends MenuCategory:
 
 enum ExtraToppingCategory(val title: String) extends MenuCategory:
   case ExtraTopping extends ExtraToppingCategory("Aggiunte")
+
+enum LegendCategory(val title: String) extends MenuCategory:
+  case Legend extends LegendCategory("Legenda")

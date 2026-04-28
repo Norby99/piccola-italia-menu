@@ -43,7 +43,8 @@ object Menu:
           toppings ++
           Seq(NewColumnCellRenderer()) ++
           Seq(createLogo) ++
-          Seq(createSocialLogos)
+          Seq(createSocialLogos) ++
+          Seq(createLegend)
     }
     createUI(combinedList, columnCount = 4, rowCount = 14)
 
@@ -84,6 +85,9 @@ object Menu:
       ImageCellRenderer("image/socials/Instagram-logo.png"),
       ImageCellRenderer("image/socials/TripAdvisor-Logo.png")
     ))
+
+  private def createLegend: CellRenderer =
+    CategoryCellRenderer(LegendCategory.Legend)
 
   private def createUI(
       cellList: Signal[Seq[CellRenderer]],
