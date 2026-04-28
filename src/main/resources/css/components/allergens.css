@@ -1,0 +1,34 @@
+.allergen-grid-cell {
+    justify-content: center;
+    break-inside: avoid;
+    margin-bottom: 2rem;
+}
+
+.allergen-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 1rem;
+    align-items: center;
+}
+
+.allergen-item {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    font-size: var(--allergen_name-font-size);
+}
+
+.allergen-image {
+    height: 2rem;
+    width: auto;
+    object-fit: contain;
+}
+
+.allergen-name {
+    font-weight: bold;
+    color: var(--generic-text-color);
+    margin: 0;
+    line-height: 1;
+    text-align: center;
+    flex: 1;
+}

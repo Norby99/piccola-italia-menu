@@ -7,10 +7,8 @@ import com.raquo.laminar.api.L.*
 class AllergenGridCellRenderer(allergens: List[Allergen]) extends CellRenderer:
   @Override
   def render(heightProportion: Int): Div =
-    val rows = math.max(1, math.ceil(allergens.size / 2.0).toInt)
     div(
-      cls := "pizza-cell allergen-grid-cell",
-      styleAttr := s"height: calc($rows * 100% / $heightProportion);",
+      cls := "allergen-grid-cell",
       div(
         cls := "allergen-grid",
         allergens.zipWithIndex.map { case (allergen, index) =>
