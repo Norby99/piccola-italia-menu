@@ -14,12 +14,12 @@
 .allergen-item {
     display: flex;
     align-items: center;
-    gap: 1em;
+    gap: 1rem;
     font-size: var(--allergen_name-font-size);
 }
 
 .allergen-image {
-    height: 2rem;
+    height: var(--allergen_name-font-size);
     width: auto;
     object-fit: contain;
 }
@@ -28,7 +28,6 @@
     font-weight: bold;
     color: var(--generic-text-color);
     margin: 0;
-    line-height: 1;
     text-align: center;
     flex: 1;
 }
