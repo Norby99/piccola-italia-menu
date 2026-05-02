@@ -28,7 +28,8 @@ object Menu:
 
   def menu2(
       dishes: Var[List[MenuDish]],
-      extToppings: Var[List[ExtraTopping]]
+      extToppings: Var[List[ExtraTopping]],
+      allergens: Var[List[Allergen]]
   ): Div =
     val orderMap: Map[MenuCategory, Int] = Map(
       PizzaCategory.Napoletano -> 1,
@@ -38,7 +39,7 @@ object Menu:
 
     val pizzaList = createPizzaList(dishes, orderMap)
     val extraToppingList = createExtraToppingList(extToppings)
-    val legendGrid = createLegend
+    val legendGrid = createLegend(allergens)
     val combinedList =
       Signal.combine(pizzaList, extraToppingList, legendGrid).map {
         case (pizzas, toppings, legend) =>
@@ -90,21 +91,16 @@ object Menu:
       ImageCellRenderer("image/socials/TripAdvisor-Logo.png")
     ))
 
-  private def createLegend: Signal[Seq[CellRenderer]] =
-    val allergenList = List(
-      Allergen("Glutine", "image/allergens/glutine.png"),
-      Allergen("Latticini", "image/allergens/latticini.png"),
-      Allergen("Glutine", "image/allergens/glutine.png"),
-      Allergen("Latticini", "image/allergens/latticini.png"),
-      Allergen("Glutine", "image/allergens/glutine.png"),
-      Allergen("Latticini", "image/allergens/latticini.png"),
-      Allergen("Glutine", "image/allergens/glutine.png"),
-      Allergen("Latticini", "image/allergens/latticini.png")
-    )
-    Val(Seq(
-      CategoryCellRenderer(LegendCategory.Legend),
-      AllergenGridCellRenderer(allergenList)
-    )).signal
+  private def createLegend(allergens: Var[List[Allergen]])
+      : Signal[Seq[CellRenderer]] =
+    allergens.signal.map { a =>
+      if (a.isEmpty) Seq.empty
+      else
+        Seq(
+          CategoryCellRenderer(LegendCategory.Legend),
+          AllergenGridCellRenderer(a)
+        )
+    }
 
   private def createUI(
       cellList: Signal[Seq[CellRenderer]],

@@ -6,6 +6,7 @@ import it.pizzafaenza.menu.menu.{Menu, MenuDish}
 import it.pizzafaenza.menu.json.BrowserJsonReader
 import com.raquo.laminar.api.L.*
 import it.pizzafaenza.menu.extraToppings.{ExtraTopping, ExtraToppingsCollection}
+import it.pizzafaenza.menu.allergens.{Allergen, AllergenCollection}
 import it.pizzafaenza.menu.salads.{Salad, SaladCollection}
 import org.scalajs.dom
 import org.scalajs.dom.window
@@ -29,6 +30,9 @@ def saladFuture: Future[List[Salad]] =
 def extraToppingFuture: Future[List[ExtraTopping]] =
   ExtraToppingsCollection(BrowserJsonReader).getExtraTopping
 
+def allergenFuture: Future[List[Allergen]] =
+  AllergenCollection(BrowserJsonReader).getAllergensToShow
+
 @main def runApp(): Unit =
   val windowWidth = Var(window.outerWidth)
 
@@ -50,8 +54,13 @@ def extraToppingFuture: Future[List[ExtraTopping]] =
     extraToppings <- extraToppingFuture
   yield extraToppingCollection.set(extraToppings)
 
+  val allergensCollection = Var(List.empty[Allergen])
+  for
+    allergens <- allergenFuture
+  yield allergensCollection.set(allergens)
+
   val menu1 = Menu.menu1(dishesVar)
-  val menu2 = Menu.menu2(dishesVar, extraToppingCollection)
+  val menu2 = Menu.menu2(dishesVar, extraToppingCollection, allergensCollection)
 
   val app = menu2
 
