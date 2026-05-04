@@ -19,7 +19,7 @@ class IngredientCollection(jsonReader: JsonReader)(implicit
           id <- c.downField("id_ingrediente").as[Int]
           nameItalian <- c.downField("nome_italiano").as[String]
           nameEnglish <- c.downField("nome_inglese").as[String]
-          allergenId <- c.downField("id").as[Int]
+          allergenId <- c.downField("allergeni").as[Int]
 
           allergen <- allergens.find(_.id == allergenId)
             .toRight(DecodingFailure(
