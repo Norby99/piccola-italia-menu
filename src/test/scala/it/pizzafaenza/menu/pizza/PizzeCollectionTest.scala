@@ -5,7 +5,12 @@ import it.pizzafaenza.menu.ingredients.IngredientCollection
 import scala.concurrent.Future
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should.Matchers
-import it.pizzafaenza.menu.mock.{MockMargheritaReader, MockIngredientsReader}
+import it.pizzafaenza.menu.mock.{
+  MockMargheritaReader,
+  MockIngredientsReader,
+  MockAllergensReader
+}
+import it.pizzafaenza.menu.allergens.AllergenCollection
 
 class PizzeCollectionTest extends AsyncFlatSpec with Matchers:
 
@@ -13,7 +18,9 @@ class PizzeCollectionTest extends AsyncFlatSpec with Matchers:
     val collection = new PizzeCollection(MockMargheritaReader)
 
     for
-      ingredients <- IngredientCollection(MockIngredientsReader).getIngredients
+      allergens <- AllergenCollection(MockAllergensReader).getAllergens
+      ingredients <-
+        IngredientCollection(MockIngredientsReader).getIngredients(allergens)
       pizze <- collection.getPizze(ingredients)
 
       salsaPomodoro = ingredients.find(_.id == 1).get

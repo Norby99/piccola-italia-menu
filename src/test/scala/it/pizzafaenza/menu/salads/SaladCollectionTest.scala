@@ -1,19 +1,27 @@
 package it.pizzafaenza.menu.salads
 
-import it.pizzafaenza.menu.mock.{MockInsalatonaReader, MockIngredientsReader}
+import it.pizzafaenza.menu.mock.{
+  MockInsalatonaReader,
+  MockIngredientsReader,
+  MockAllergensReader
+}
 import it.pizzafaenza.menu.menu.SaladCategory
 import it.pizzafaenza.menu.ingredients.IngredientCollection
+import it.pizzafaenza.menu.allergens.AllergenCollection
 
 import scala.concurrent.Future
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should.Matchers
 
 class SaladCollectionTest extends AsyncFlatSpec with Matchers:
+
   "SaladCollection" should "load Insalatona with ingredients from a JSON" in:
     val collection = new SaladCollection(MockInsalatonaReader)
 
     for
-      ingredients <- IngredientCollection(MockIngredientsReader).getIngredients
+      allergens <- AllergenCollection(MockAllergensReader).getAllergens
+      ingredients <-
+        IngredientCollection(MockIngredientsReader).getIngredients(allergens)
       salads <- collection.getSalad(ingredients)
 
       insalata = ingredients.find(_.id == 69).get
