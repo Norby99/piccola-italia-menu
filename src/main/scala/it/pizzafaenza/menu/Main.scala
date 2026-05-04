@@ -14,8 +14,13 @@ import org.scalajs.dom.window
 import scala.concurrent.Future
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 
+def allergensFuture: Future[List[Allergen]] =
+  AllergenCollection(BrowserJsonReader).getAllergens
+
 def ingredientsFuture: Future[List[Ingredient]] =
-  IngredientCollection(BrowserJsonReader).getIngredients
+  allergensFuture.flatMap { allergens =>
+    IngredientCollection(BrowserJsonReader).getIngredients(allergens)
+  }
 
 def pizzeFuture: Future[List[Pizza]] =
   ingredientsFuture.flatMap { ing =>
@@ -30,7 +35,7 @@ def saladFuture: Future[List[Salad]] =
 def extraToppingFuture: Future[List[ExtraTopping]] =
   ExtraToppingsCollection(BrowserJsonReader).getExtraTopping
 
-def allergenFuture: Future[List[Allergen]] =
+def allergenFutureToShow: Future[List[Allergen]] =
   AllergenCollection(BrowserJsonReader).getAllergensToShow
 
 @main def runApp(): Unit =
@@ -56,7 +61,7 @@ def allergenFuture: Future[List[Allergen]] =
 
   val allergensCollection = Var(List.empty[Allergen])
   for
-    allergens <- allergenFuture
+    allergens <- allergenFutureToShow
   yield allergensCollection.set(allergens)
 
   val menu1 = Menu.menu1(dishesVar)

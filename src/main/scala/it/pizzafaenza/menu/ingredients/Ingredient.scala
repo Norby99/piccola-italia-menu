@@ -1,7 +1,6 @@
 package it.pizzafaenza.menu.ingredients
 
 import it.pizzafaenza.menu.utils.Name
-
-case class Allergen(name: String)
+import it.pizzafaenza.menu.allergens.Allergen
 
 case class Ingredient(id: Int, name: Name, allergen: Allergen)
