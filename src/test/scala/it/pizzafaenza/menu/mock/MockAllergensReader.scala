@@ -22,6 +22,10 @@ object MockAllergensReader extends JsonReader:
         |   {
         |       "id":"3",
         |       "tipo":"Pesce"
+        |   },
+        |   {
+        |       "id":"7",
+        |       "tipo":"Latticini"
         |   }
         |]
         |""".stripMargin
