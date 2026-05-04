@@ -20,5 +20,5 @@ class IngredientCollectionTest extends AsyncFlatSpec with Matchers:
       gamberetti.id shouldBe 50
       gamberetti.name.italian shouldBe "gamberetti"
       gamberetti.name.english shouldBe "shrimps"
-      gamberetti.allergen.name shouldBe "Pesce"
+      gamberetti.allergen.get.name shouldBe "Pesce"
       succeed

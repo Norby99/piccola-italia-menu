@@ -21,12 +21,9 @@ class IngredientCollection(jsonReader: JsonReader)(implicit
           nameEnglish <- c.downField("nome_inglese").as[String]
           allergenId <- c.downField("allergeni").as[Int]
 
-          allergen <- allergens.find(_.id == allergenId)
-            .toRight(DecodingFailure(
-              s"Allergene con id $allergenId non trovato",
-              c.history
-            ))
-        yield Ingredient(id, Name(nameItalian, nameEnglish), allergen)
+          allergenOpt =
+            allergens.find(_.id == allergenId).filter(_.name != "Nul")
+        yield Ingredient(id, Name(nameItalian, nameEnglish), allergenOpt)
 
     jsonReader.read(DBPath).map { content =>
       content.as[List[Ingredient]] match
