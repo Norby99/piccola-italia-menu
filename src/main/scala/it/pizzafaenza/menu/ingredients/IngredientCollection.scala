@@ -22,7 +22,7 @@ class IngredientCollection(jsonReader: JsonReader)(implicit
           allergenId <- c.downField("allergeni").as[Int]
 
           allergenOpt =
-            allergens.find(_.id == allergenId).filter(_.name != "Nul")
+            allergens.find(_.id == allergenId).filter(_.name != "Null")
         yield Ingredient(id, Name(nameItalian, nameEnglish), allergenOpt)
 
     jsonReader.read(DBPath).map { content =>
