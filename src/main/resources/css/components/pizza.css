@@ -35,7 +35,6 @@
 .pizza-header {
     margin-top: 1%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
 }
 
@@ -49,10 +48,27 @@
 
 .pizza-price {
     margin: 0;
+    margin-left: auto;
     font-weight: bold;
     text-align: right;
     color: var(--price-color);
     font-size: var(--pizza_price-font-size);
+}
+
+.pizza-allergen-grid {
+    margin: 0;
+    padding: 0;
+
+    margin-left: 0.5rem; /* Space between name and allergen grid */
+
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.pizza-allergen {
+    height: 1rem;
+    width: auto;
 }
 
 .pizza-body {

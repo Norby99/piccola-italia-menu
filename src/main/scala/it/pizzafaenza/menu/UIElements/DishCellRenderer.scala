@@ -18,6 +18,20 @@ class DishCellRenderer(dish: MenuDish)
           s"${dish.name}"
         ),
         p(
+          cls := "pizza-allergen-grid",
+          dish.ingredients
+            .flatMap(_.allergen)
+            .map(_.image)
+            .distinct
+            .map(imagePath =>
+              img(
+                src := imagePath,
+                cls := "pizza-allergen",
+                alt := "Allergen"
+              )
+            ).toSeq
+        ),
+        p(
           cls := "pizza-price",
           s"€${dish.price.stringify}"
         )
