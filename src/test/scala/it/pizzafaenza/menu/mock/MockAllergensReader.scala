@@ -13,19 +13,19 @@ object MockAllergensReader extends JsonReader:
         |[
         |   {
         |       "id":"1",
-        |       "tipo":"Null"
+        |       "name":"Null"
         |   },
         |   {
         |       "id":"2",
-        |       "tipo":"Uova"
+        |       "name":"Uova"
         |   },
         |   {
         |       "id":"3",
-        |       "tipo":"Pesce"
+        |       "name":"Pesce"
         |   },
         |   {
         |       "id":"7",
-        |       "tipo":"Latticini"
+        |       "name":"Latticini"
         |   }
         |]
         |""".stripMargin

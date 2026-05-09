@@ -19,8 +19,7 @@ class DishCellRenderer(dish: MenuDish)
         ),
         p(
           cls := "pizza-allergen-grid",
-          dish.ingredients
-            .flatMap(_.allergen)
+          dish.allergens
             .map(_.image)
             .distinct
             .map(imagePath =>
@@ -40,7 +39,7 @@ class DishCellRenderer(dish: MenuDish)
         cls := "pizza-body",
         p(
           cls := "pizza-ingredients",
-          dish.ingredients.map(i => i.name.italian).mkString(", ").capitalize
+          dish.ingredients.italian.mkString(", ").capitalize
         )
       )
     )

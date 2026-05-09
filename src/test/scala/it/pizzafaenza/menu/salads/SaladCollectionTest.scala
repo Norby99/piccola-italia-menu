@@ -1,13 +1,7 @@
 package it.pizzafaenza.menu.salads
 
-import it.pizzafaenza.menu.mock.{
-  MockInsalatonaReader,
-  MockIngredientsReader,
-  MockAllergensReader
-}
+import it.pizzafaenza.menu.mock.MockInsalatonaReader
 import it.pizzafaenza.menu.menu.SaladCategory
-import it.pizzafaenza.menu.ingredients.IngredientCollection
-import it.pizzafaenza.menu.allergens.AllergenCollection
 
 import scala.concurrent.Future
 import org.scalatest.flatspec.AsyncFlatSpec
@@ -19,23 +13,12 @@ class SaladCollectionTest extends AsyncFlatSpec with Matchers:
     val collection = new SaladCollection(MockInsalatonaReader)
 
     for
-      allergens <- AllergenCollection(MockAllergensReader).getAllergens
-      ingredients <-
-        IngredientCollection(MockIngredientsReader).getIngredients(allergens)
-      salads <- collection.getSalad(ingredients)
-
-      insalata = ingredients.find(_.id == 69).get
-      oliveNere = ingredients.find(_.id == 32).get
-      pomodoriCalabresi = ingredients.find(_.id == 56).get
-      pomodorini = ingredients.find(_.id == 15).get
-      radicchio = ingredients.find(_.id == 14).get
-      rucola = ingredients.find(_.id == 30).get
-      tonno = ingredients.find(_.id == 39).get
+      salads <- collection.getSalad
     yield
       salads.length shouldBe 1
       val salad = salads.head
       salad.name shouldBe "Insalatona"
       salad.category shouldBe SaladCategory.Salad
-      salad.ingredients should contain allOf (insalata, oliveNere, pomodoriCalabresi, pomodorini, radicchio, rucola, tonno)
+      salad.ingredients.italian should contain allOf ("insalata", "olive nere", "pomodori calabresi", "pomodorini", "radicchio", "rucola", "tonno")
       salad.price shouldBe 9.0
       succeed
