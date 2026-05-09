@@ -9,15 +9,15 @@ import scala.concurrent.{ExecutionContext, Future}
 class ExtraToppingsCollection(jsonReader: JsonReader)(implicit
     ec: ExecutionContext
 ):
-  private val DBPath = "data/aggiunte.json"
+  private val DBPath = "data/extra_topping.json"
 
   given Decoder[ExtraTopping] = new Decoder[ExtraTopping]:
     final def apply(c: HCursor): Decoder.Result[ExtraTopping] =
       for
-        id <- c.downField("id_aggiunta").as[Int]
-        nameItalian <- c.downField("nome_aggiunta").as[String]
-        nameEnglish <- c.downField("nome_inglese").as[String]
-        price <- c.downField("prezzo").as[String].map(_.toDouble)
+        id <- c.downField("id").as[Int]
+        nameItalian <- c.downField("name_italian").as[String]
+        nameEnglish <- c.downField("name_english").as[String]
+        price <- c.downField("price").as[String].map(_.toDouble)
       yield ExtraTopping(id, Name(nameItalian, nameEnglish), price)
 
   def getExtraTopping: Future[List[ExtraTopping]] =

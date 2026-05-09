@@ -10,11 +10,14 @@ object MockMargheritaReader extends JsonReader:
       """
         |[
         |    {
-        |        "id": "1",
-        |        "nomePizza": "Margherita",
-        |        "nome_tipo": "Pizze classiche",
-        |        "prezzo": "4",
-        |        "ingredienti": "1,2"
+        |        "id":"1",
+        |        "name":"Margherita",
+        |        "category":"Pizze classiche",
+        |        "price":"4.5",
+        |        "dough":"impasto normale",
+        |        "toppings_italian":"salsa di pomodoro,mozzarella",
+        |        "toppings_english":"tomato sauce,mozzarella cheese",
+        |        "allergens":"Soia,Glutine,Latticini"
         |    }
         |]
         |""".stripMargin

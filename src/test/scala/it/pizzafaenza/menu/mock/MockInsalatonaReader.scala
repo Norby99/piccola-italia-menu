@@ -11,10 +11,12 @@ object MockInsalatonaReader extends JsonReader:
       """
         |[
         |    {
-        |        "id": "1",
-        |        "nomeInsalata": "Insalatona",
-        |        "prezzo": "9",
-        |        "ingredienti": "69,32,56,15,14,30,39"
+        |        "id":"1",
+        |        "name":"Insalatona",
+        |        "price":"9",
+        |        "toppings_italian":"radicchio,pomodorini,rucola,olive nere,tonno,pomodori calabresi,insalata",
+        |        "toppings_english":"radicchio,cherry tomatoes,bed of arugula,black olive,tuna,dried tomatoes,salad",
+        |        "allergens":"Pesce"
         |    }
         |]
         |""".stripMargin

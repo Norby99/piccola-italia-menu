@@ -1,11 +1,14 @@
 package it.pizzafaenza.menu.pizza
 
-import it.pizzafaenza.menu.ingredients.Ingredient
-import it.pizzafaenza.menu.menu.{MenuDish, PizzaCategory}
+import it.pizzafaenza.menu.menu.{Ingredients, MenuDish, PizzaCategory}
+import it.pizzafaenza.menu.allergens.Allergen
 
 case class Pizza(
+    id: Int,
     name: String,
     category: PizzaCategory,
-    ingredients: List[Ingredient],
+    dough: String,
+    ingredients: Ingredients,
+    allergens: List[Allergen],
     price: Double
 ) extends MenuDish

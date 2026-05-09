@@ -1,42 +1,17 @@
 package it.pizzafaenza.menu
 
-import it.pizzafaenza.menu.ingredients.{Ingredient, IngredientCollection}
-import it.pizzafaenza.menu.pizza.{Pizza, PizzeCollection}
+import it.pizzafaenza.menu.pizza.PizzaCollection
 import it.pizzafaenza.menu.menu.{Menu, MenuDish}
 import it.pizzafaenza.menu.json.BrowserJsonReader
 import com.raquo.laminar.api.L.*
 import it.pizzafaenza.menu.extraToppings.{ExtraTopping, ExtraToppingsCollection}
 import it.pizzafaenza.menu.allergens.{Allergen, AllergenCollection}
-import it.pizzafaenza.menu.salads.{Salad, SaladCollection}
+import it.pizzafaenza.menu.salads.SaladCollection
 import org.scalajs.dom
 import org.scalajs.dom.window
 
 import scala.concurrent.Future
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
-
-def allergensFuture: Future[List[Allergen]] =
-  AllergenCollection(BrowserJsonReader).getAllergens
-
-def ingredientsFuture: Future[List[Ingredient]] =
-  allergensFuture.flatMap { allergens =>
-    IngredientCollection(BrowserJsonReader).getIngredients(allergens)
-  }
-
-def pizzeFuture: Future[List[Pizza]] =
-  ingredientsFuture.flatMap { ing =>
-    PizzeCollection(BrowserJsonReader).getPizze(ing)
-  }
-
-def saladFuture: Future[List[Salad]] =
-  ingredientsFuture.flatMap { ing =>
-    SaladCollection(BrowserJsonReader).getSalad(ing)
-  }
-
-def extraToppingFuture: Future[List[ExtraTopping]] =
-  ExtraToppingsCollection(BrowserJsonReader).getExtraTopping
-
-def allergenFutureToShow: Future[List[Allergen]] =
-  AllergenCollection(BrowserJsonReader).getAllergensToShow
 
 @main def runApp(): Unit =
   val windowWidth = Var(window.outerWidth)
@@ -50,18 +25,18 @@ def allergenFutureToShow: Future[List[Allergen]] =
 
   val dishesVar = Var(List.empty[MenuDish])
   for
-    pizze <- pizzeFuture
-    insalate <- saladFuture
-  yield dishesVar.set(pizze ++ insalate)
+    pizzas <- PizzaCollection(BrowserJsonReader).getPizza
+    salads <- SaladCollection(BrowserJsonReader).getSalad
+  yield dishesVar.set(pizzas ++ salads)
 
   val extraToppingCollection = Var(List.empty[ExtraTopping])
   for
-    extraToppings <- extraToppingFuture
+    extraToppings <- ExtraToppingsCollection(BrowserJsonReader).getExtraTopping
   yield extraToppingCollection.set(extraToppings)
 
   val allergensCollection = Var(List.empty[Allergen])
   for
-    allergens <- allergenFutureToShow
+    allergens <- AllergenCollection(BrowserJsonReader).getAllergensToShow
   yield allergensCollection.set(allergens)
 
   val menu1 = Menu.menu1(dishesVar)

@@ -7,13 +7,13 @@ import org.scalatest.matchers.should.Matchers
 import scala.concurrent.Future
 
 class AllergenCollectionTest extends AsyncFlatSpec with Matchers:
-  "AllergenCollection" should "load uova from a JSON" in:
+  "AllergenCollection" should "load eggs from a JSON" in:
     val collection = new AllergenCollection(MockAllergensReader)
 
     for
       allergens <- collection.getAllergens
-      uova = allergens.find(_.id == 2).get
+      eggs = allergens.find(_.id == 2).get
     yield
-      uova.id shouldBe 2
-      uova.name shouldBe "Uova"
+      eggs.id shouldBe 2
+      eggs.name shouldBe "Uova"
       succeed

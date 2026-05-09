@@ -8,19 +8,19 @@ import scala.concurrent.{ExecutionContext, Future}
 class AllergenCollection(jsonReader: JsonReader)(implicit
     ec: ExecutionContext
 ):
-  private val DBPath = "data/allergeni.json"
+  private val DBPath = "data/allergen.json"
 
   given Decoder[Allergen] = new Decoder[Allergen]:
     final def apply(c: HCursor): Decoder.Result[Allergen] =
       for
         id <- c.downField("id").as[Int]
-        name <- c.downField("tipo").as[String]
+        name <- c.downField("name").as[String]
       yield Allergen(id, name)
 
   def getAllergens: Future[List[Allergen]] =
     jsonReader.read(DBPath).map { content =>
       content.as[List[Allergen]] match
-        case Right(l) => l.sortBy(_.id)
+        case Right(l) => l
         case Left(error) =>
           throw new Exception(s"Failed to decode Allergen: $error")
     }
