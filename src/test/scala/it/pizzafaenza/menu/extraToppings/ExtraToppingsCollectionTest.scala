@@ -1,6 +1,5 @@
 package it.pizzafaenza.menu.extraToppings
 
-import it.pizzafaenza.menu.menu.ExtraToppingCategory
 import it.pizzafaenza.menu.mock.MockExtraToppingsReader
 import org.scalatest.flatspec.AsyncFlatSpec
 import org.scalatest.matchers.should.Matchers
