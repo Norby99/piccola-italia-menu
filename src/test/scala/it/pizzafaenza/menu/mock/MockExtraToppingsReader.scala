@@ -11,16 +11,16 @@ object MockExtraToppingsReader extends JsonReader:
       """
         |[
         |    {
-        |        "id_aggiunta": "1",
-        |        "nome_aggiunta": "Doppio impasto",
-        |        "nome_inglese": "Double dough",
-        |        "prezzo": "1.5"
+        |        "id": "1",
+        |        "name_italian": "Doppio impasto",
+        |        "name_english": "Double dough",
+        |        "price": "1.5"
         |    },
         |    {
-        |        "id_aggiunta": "2",
-        |        "nome_aggiunta": "Mozzarella di Bufala",
-        |        "nome_inglese": "Buffalo mozzarella",
-        |        "prezzo": "2.5"
+        |        "id": "2",
+        |        "name_italian": "Mozzarella di Bufala",
+        |        "name_english": "Buffalo mozzarella",
+        |        "price": "2.5"
         |    }
         |]
         |""".stripMargin
