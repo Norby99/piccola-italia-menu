@@ -10,6 +10,7 @@ enum PizzaCategory(val title: String) extends MenuCategory:
   case Stese extends PizzaCategory("Pizze stese")
   case Napoletano extends PizzaCategory("Impasto Napoletano")
   case Dolci extends PizzaCategory("Pizze dolci")
+  case Novita extends PizzaCategory("Novità")
 
 enum SaladCategory(val title: String) extends MenuCategory:
   case Salad extends SaladCategory("Insalate +spianata")
