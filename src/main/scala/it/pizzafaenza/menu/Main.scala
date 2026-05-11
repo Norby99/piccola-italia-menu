@@ -8,7 +8,7 @@ import it.pizzafaenza.menu.extraToppings.{ExtraTopping, ExtraToppingsCollection}
 import it.pizzafaenza.menu.allergens.{Allergen, AllergenCollection}
 import it.pizzafaenza.menu.salads.SaladCollection
 import org.scalajs.dom
-import org.scalajs.dom.window
+import org.scalajs.dom.{URLSearchParams, window}
 
 import scala.concurrent.Future
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
@@ -42,6 +42,10 @@ import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
   val menu1 = Menu.menu1(dishesVar)
   val menu2 = Menu.menu2(dishesVar, extraToppingCollection, allergensCollection)
 
-  val app = menu2
+  val menuGetter = new URLSearchParams(window.location.search).get("menu")
+
+  val app = menuGetter match
+    case "1" => menu1
+    case "2" => menu2
 
   renderOnDomContentLoaded(dom.document.getElementById("app"), app)
