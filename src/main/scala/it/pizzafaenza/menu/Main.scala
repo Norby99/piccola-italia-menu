@@ -3,10 +3,11 @@ package it.pizzafaenza.menu
 import it.pizzafaenza.menu.pizza.PizzaCollection
 import it.pizzafaenza.menu.menu.{Menu, MenuDish}
 import it.pizzafaenza.menu.json.BrowserJsonReader
-import com.raquo.laminar.api.L.*
 import it.pizzafaenza.menu.extraToppings.{ExtraTopping, ExtraToppingsCollection}
 import it.pizzafaenza.menu.allergens.{Allergen, AllergenCollection}
 import it.pizzafaenza.menu.salads.SaladCollection
+
+import com.raquo.laminar.api.L.*
 import org.scalajs.dom
 import org.scalajs.dom.{URLSearchParams, window}
 
@@ -24,28 +25,37 @@ import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
   )
 
   val dishesVar = Var(List.empty[MenuDish])
-  for
-    pizzas <- PizzaCollection(BrowserJsonReader).getPizza
-    salads <- SaladCollection(BrowserJsonReader).getSalad
-  yield dishesVar.set(pizzas ++ salads)
-
   val extraToppingCollection = Var(List.empty[ExtraTopping])
-  for
-    extraToppings <- ExtraToppingsCollection(BrowserJsonReader).getExtraTopping
-  yield extraToppingCollection.set(extraToppings)
-
   val allergensCollection = Var(List.empty[Allergen])
-  for
-    allergens <- AllergenCollection(BrowserJsonReader).getAllergensToShow
-  yield allergensCollection.set(allergens)
 
-  val menu1 = Menu.menu1(dishesVar)
-  val menu2 = Menu.menu2(dishesVar, extraToppingCollection, allergensCollection)
+  def reloadAll(): Future[Unit] =
+    for
+      pizzas <- PizzaCollection(BrowserJsonReader).getPizza
+      salads <- SaladCollection(BrowserJsonReader).getSalad
+      extraToppings <-
+        ExtraToppingsCollection(BrowserJsonReader).getExtraTopping
+      allergens <- AllergenCollection(BrowserJsonReader).getAllergensToShow
+    yield
+      dishesVar.set(pizzas ++ salads)
+      extraToppingCollection.set(extraToppings)
+      allergensCollection.set(allergens)
+
+  reloadAll()
 
   val menuGetter = new URLSearchParams(window.location.search).get("menu")
 
   val app = menuGetter match
-    case "1" => menu1
-    case "2" => menu2
+    case "2" =>
+      Menu.menu2(dishesVar, extraToppingCollection, allergensCollection)
+    case _ => Menu.menu1(dishesVar)
 
-  renderOnDomContentLoaded(dom.document.getElementById("app"), app)
+  renderOnDomContentLoaded(
+    dom.document.getElementById("app"),
+    div(
+      // Polling the reloading of the menu from files every 1 min
+      EventStream.periodic(60 * 1000)
+        .flatMapSwitch(_ => EventStream.fromFuture(reloadAll()))
+        --> Observer.empty,
+      app
+    )
+  )
