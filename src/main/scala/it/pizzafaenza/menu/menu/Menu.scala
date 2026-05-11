@@ -34,7 +34,8 @@ object Menu:
     val orderMap: Map[MenuCategory, Int] = Map(
       PizzaCategory.Napoletano -> 1,
       PizzaCategory.Dolci -> 2,
-      SaladCategory.Salad -> 3
+      PizzaCategory.Novita -> 3,
+      SaladCategory.Salad -> 4
     )
 
     val pizzaList = createPizzaList(dishes, orderMap)
