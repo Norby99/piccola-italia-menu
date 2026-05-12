@@ -19,6 +19,8 @@ class SaladCollectionTest extends AsyncFlatSpec with Matchers:
       val salad = salads.head
       salad.name shouldBe "Insalatona"
       salad.category shouldBe SaladCategory.Salad
-      salad.ingredients.italian should contain allOf ("insalata", "olive nere", "pomodori calabresi", "pomodorini", "radicchio", "rucola", "tonno")
+      salad.ingredients.map(
+        _.name.italian
+      ) should contain allOf ("insalata", "olive nere", "pomodori calabresi", "pomodorini", "radicchio", "rucola", "tonno")
       salad.price shouldBe 9.0
       succeed

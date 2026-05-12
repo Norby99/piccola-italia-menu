@@ -16,6 +16,8 @@ class PizzaCollectionTest extends AsyncFlatSpec with Matchers:
       pizzas.length shouldBe 1
       val pizza = pizzas.head
       pizza.name shouldBe "Margherita"
-      pizza.ingredients.italian should contain allOf ("salsa di pomodoro", "mozzarella")
+      pizza.ingredients.map(
+        _.name.italian
+      ) should contain allOf ("salsa di pomodoro", "mozzarella")
       pizza.price shouldBe 4.5
       succeed
