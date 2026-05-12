@@ -1,13 +1,14 @@
 package it.pizzafaenza.menu.menu
 
 import it.pizzafaenza.menu.allergens.Allergen
+import it.pizzafaenza.menu.utils.Name
 
-case class Ingredients(italian: List[String], english: List[String])
+case class Ingredient(name: Name)
 
 trait MenuDish:
   def id: Int
   def name: String
   def category: MenuCategory
-  def ingredients: Ingredients
+  def ingredients: List[Ingredient]
   def allergens: List[Allergen]
   def price: Double

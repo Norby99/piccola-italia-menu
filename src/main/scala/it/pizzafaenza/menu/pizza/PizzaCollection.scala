@@ -3,7 +3,8 @@ package it.pizzafaenza.menu.pizza
 import it.pizzafaenza.menu.json.JsonReader
 import io.circe.*
 import it.pizzafaenza.menu.allergens.Allergen
-import it.pizzafaenza.menu.menu.{Ingredients, PizzaCategory}
+import it.pizzafaenza.menu.menu.{Ingredient, PizzaCategory}
+import it.pizzafaenza.menu.utils.Name
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -28,13 +29,14 @@ class PizzaCollection(jsonReader: JsonReader)(implicit ec: ExecutionContext):
         price <- c.downField("price").as[String].map(_.toDouble)
         ingredients <-
           for
-            ingr_ita <- c.downField("toppings_italian").as[String].map(_.split(
-              ","
-            ).toList)
-            ingr_eng <- c.downField("toppings_english").as[String].map(_.split(
-              ","
-            ).toList)
-          yield Ingredients(ingr_ita, ingr_eng)
+            itaStr <- c.downField("toppings_italian").as[String]
+            engStr <- c.downField("toppings_english").as[String]
+          yield
+            val listIta = itaStr.split(",").toList.map(_.trim)
+            val listEng = engStr.split(",").toList.map(_.trim)
+            listIta.zip(listEng).map { case (it, en) =>
+              Ingredient(Name(it, en))
+            }
         allergens <- c.downField("allergens").as[String].map(
           _.split(",").toList.map(Allergen(0, _))
         )
