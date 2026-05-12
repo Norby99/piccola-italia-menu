@@ -7,7 +7,7 @@ object AppConfig:
   private val fallbackLangUrl =
     "http://localhost:100/request/menupizze/language_setting/index.php"
 
-  val langPollingUrl: String =
+  lazy val langPollingUrl: String =
     if js.typeOf(global.__ENV__) != "undefined" &&
       js.typeOf(global.__ENV__.LANG_POLLING_URL) != "undefined"
     then
