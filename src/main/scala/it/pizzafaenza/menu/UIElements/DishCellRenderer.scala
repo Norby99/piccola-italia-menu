@@ -2,12 +2,13 @@ package it.pizzafaenza.menu.UIElements
 
 import com.raquo.laminar.api.L.*
 import it.pizzafaenza.menu.menu.MenuDish
-import it.pizzafaenza.menu.utils.stringify
+import it.pizzafaenza.menu.utils.{Language, Italian, stringify}
 
 class DishCellRenderer(dish: MenuDish)
     extends CellRenderer:
   @Override
   def render(heightProportion: Int): Div =
+    val currentLang: Var[Language] = Var(Italian)
     div(
       cls := "pizza-cell",
       styleAttr := s"--elements-per-column: $heightProportion",
@@ -39,7 +40,14 @@ class DishCellRenderer(dish: MenuDish)
         cls := "pizza-body",
         p(
           cls := "pizza-ingredients",
-          dish.ingredients.italian.mkString(", ").capitalize
+          child.text <-- currentLang.signal.map { lang =>
+            dish.ingredients
+              .map(
+                _.name.get(lang).capitalize
+              )
+              .mkString(", ")
+              .capitalize
+          }
         )
       )
     )
