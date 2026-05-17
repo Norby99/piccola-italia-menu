@@ -67,7 +67,7 @@
 }
 
 .pizza-allergen {
-    height: 1rem;
+    height: var(--pizza_name-font-size);
     width: auto;
 }
 
