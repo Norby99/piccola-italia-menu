@@ -9,7 +9,8 @@ import it.pizzafaenza.menu.UIElements.{
   ExtraToppingCellRenderer,
   ImageArrayCellRenderer,
   ImageCellRenderer,
-  NewColumnCellRenderer
+  NewColumnCellRenderer,
+  SimpleTextCellRenderer
 }
 import it.pizzafaenza.menu.allergens.Allergen
 import it.pizzafaenza.menu.extraToppings.ExtraTopping
@@ -45,9 +46,17 @@ object Menu:
     val dolciList = createPizzaList(dishes, dolciOrderMap)
     val extraToppingList = createExtraToppingList(extToppings)
     val legendGrid = createLegend(allergens)
+    val coperto = createCoperto()
+
     val combinedList =
-      Signal.combine(pizzaList, dolciList, extraToppingList, legendGrid).map {
-        case (pizzas, dolci, toppings, legend) =>
+      Signal.combine(
+        pizzaList,
+        dolciList,
+        extraToppingList,
+        legendGrid,
+        coperto
+      ).map {
+        case (pizzas, dolci, toppings, legend, cop) =>
           pizzas ++
             Seq(NewColumnCellRenderer()) ++
             toppings ++
@@ -55,7 +64,8 @@ object Menu:
             Seq(createLogo) ++
             Seq(createSocialLogos) ++
             legend ++
-            dolci
+            dolci ++
+            cop
       }
     createUI(combinedList, columnCount = 4, rowCount = 14)
 
@@ -75,6 +85,12 @@ object Menu:
           CategoryCellRenderer(category) +: dishList.map(DishCellRenderer(_))
         }
     }
+
+  /** Creates a cell renderer for the "Coperto" section. This is hardcoded as it
+    * is a fixed element on the menu, but it could be made dynamic if needed.
+    */
+  private def createCoperto(): Signal[Seq[CellRenderer]] =
+    Signal.fromValue(Seq(SimpleTextCellRenderer("Coperto: 0.5€")))
 
   private def createExtraToppingList(
       dishes: Var[List[ExtraTopping]]
