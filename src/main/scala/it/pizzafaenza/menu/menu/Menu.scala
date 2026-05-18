@@ -31,26 +31,31 @@ object Menu:
       extToppings: Var[List[ExtraTopping]],
       allergens: Var[List[Allergen]]
   ): Div =
-    val orderMap: Map[MenuCategory, Int] = Map(
+    val pizzaOrderMap: Map[MenuCategory, Int] = Map(
       PizzaCategory.Napoletano -> 1,
-      PizzaCategory.Dolci -> 2,
-      PizzaCategory.Novita -> 3,
-      SaladCategory.Salad -> 4
+      SaladCategory.Salad -> 2,
+      PizzaCategory.Novita -> 3
     )
 
-    val pizzaList = createPizzaList(dishes, orderMap)
+    val dolciOrderMap: Map[MenuCategory, Int] = Map(
+      PizzaCategory.Dolci -> 1
+    )
+
+    val pizzaList = createPizzaList(dishes, pizzaOrderMap)
+    val dolciList = createPizzaList(dishes, dolciOrderMap)
     val extraToppingList = createExtraToppingList(extToppings)
     val legendGrid = createLegend(allergens)
     val combinedList =
-      Signal.combine(pizzaList, extraToppingList, legendGrid).map {
-        case (pizzas, toppings, legend) =>
+      Signal.combine(pizzaList, dolciList, extraToppingList, legendGrid).map {
+        case (pizzas, dolci, toppings, legend) =>
           pizzas ++
             Seq(NewColumnCellRenderer()) ++
             toppings ++
             Seq(NewColumnCellRenderer()) ++
             Seq(createLogo) ++
             Seq(createSocialLogos) ++
-            legend
+            legend ++
+            dolci
       }
     createUI(combinedList, columnCount = 4, rowCount = 14)
 
