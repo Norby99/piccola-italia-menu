@@ -1,0 +1,7 @@
+.coperto-name {
+    margin: 0;
+    font-weight: bold;
+    text-align: left;
+    color: var(--generic-text-color);
+    font-size: var(--coperto_name-font-size);
+}
